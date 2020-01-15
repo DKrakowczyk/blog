@@ -1,13 +1,9 @@
-import { Field, ObjectType } from "type-graphql";
+import { Field, ObjectType, InputType } from "type-graphql";
 import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
 import { ObjectId } from "bson";
 
-@ObjectType({ description: "Comment model" })
+@InputType()
 export class AddCommentInput {
-  //
-  @Field(() => ObjectIdScalar)
-  readonly _id: ObjectId;
-
   @Field({ description: "Comment body" })
   comment: string;
 

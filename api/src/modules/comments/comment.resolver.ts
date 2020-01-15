@@ -8,19 +8,29 @@ import { CommentService } from "./comment.service";
 @Resolver(() => Comment)
 export class CommentResolver {
   constructor(
-    @Inject(Comment) private readonly commentService: CommentService
+    @Inject(CommentService) private readonly commentService: CommentService
   ) {}
 
   @Query(() => [Comment])
-  async getAllComments(): Promise<Comment[]> {
-    return this.commentService.findAll();
+  async getAllComments(
+    @Args("articleId") articleId: ObjectIdScalar
+  ): Promise<Comment[]> {
+    return this.commentService.findAll(articleId);
   }
 
   @Mutation(() => Comment)
   async addComment(
     @Args("input") input: AddCommentInput,
-    @Args("_id") id: ObjectIdScalar
+    @Args("articleId") articleId: ObjectIdScalar
   ): Promise<Comment> {
-    return this.commentService.create(input, id);
+    return this.commentService.create(input, articleId);
+  }
+
+  @Mutation(() => Comment)
+  async removeComment(
+    @Args("articleId") articleId: ObjectIdScalar,
+    @Args("commentId") commentId: ObjectIdScalar
+  ): Promise<Comment> {
+    return this.commentService.remove(articleId, commentId);
   }
 }

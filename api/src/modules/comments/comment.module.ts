@@ -4,11 +4,14 @@ import { CommonModule } from "../common/common.module";
 import { Comment, CommentSchema } from "./models/comment.schema";
 import { CommentResolver } from "./comment.resolver";
 import { CommentService } from "./comment.service";
+import { ArticleService } from "../articles/article.service";
+import { ArticleModule } from "../articles/article.module";
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Comment.name, schema: CommentSchema }]),
-    CommonModule
+    CommonModule,
+    ArticleModule
   ],
   providers: [CommentResolver, CommentService]
 })

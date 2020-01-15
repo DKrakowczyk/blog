@@ -10,6 +10,7 @@ import { CommonModule } from "../common/common.module";
     MongooseModule.forFeature([{ name: Article.name, schema: ArticleSchema }]),
     CommonModule
   ],
-  providers: [ArticleResolver, ArticleService]
+  providers: [ArticleResolver, ArticleService],
+  exports: [ArticleService]
 })
 export class ArticleModule {}

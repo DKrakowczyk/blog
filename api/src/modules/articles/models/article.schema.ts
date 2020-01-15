@@ -3,6 +3,7 @@ import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
 import { ObjectId } from "bson";
 import { Schema } from "mongoose";
 import { buildSchema, prop as Property } from "@typegoose/typegoose";
+import { Comment } from "src/modules/comments/models/comment.schema";
 @ObjectType({ description: "Article model" })
 export class Article {
   //
@@ -28,6 +29,13 @@ export class Article {
   @Field({ description: "Is draft (true/false)" })
   @Property()
   isDraft: boolean;
+
+  @Field(type => [Comment], {
+    description: "Comments for current post",
+    nullable: true
+  })
+  @Property({ required: false })
+  comments: Comment[];
 
   @Field({ description: "Creation time" })
   @Property()
