@@ -4,6 +4,7 @@ import { ObjectId } from "bson";
 import { Schema } from "mongoose";
 import { buildSchema, prop as Property } from "@typegoose/typegoose";
 import { Comment } from "src/modules/comments/models/comment.schema";
+import { User } from "src/modules/users/models/user.schema";
 @ObjectType({ description: "Article model" })
 export class Article {
   //
@@ -24,7 +25,7 @@ export class Article {
 
   @Field({ description: "Article body" })
   @Property()
-  author: string;
+  author: User;
 
   @Field({ description: "Is draft (true/false)" })
   @Property()
