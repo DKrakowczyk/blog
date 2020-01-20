@@ -19,7 +19,9 @@ export class UserService {
   async findOne(id: ObjectIdScalar | ObjectId): Promise<User> {
     return this.userModel.findById(id);
   }
-
+  async findOneByEmail(email: string) {
+    return this.userModel.findOne({ email: email });
+  }
   async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
   }

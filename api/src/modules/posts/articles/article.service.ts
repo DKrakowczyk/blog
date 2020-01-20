@@ -16,12 +16,15 @@ export class ArticleService {
     @InjectModel(Article.name)
     private readonly articleModel: ReturnModelType<typeof Article>,
     @Inject(UserService)
-    private readonly userService: UserService,
+    public readonly userService: UserService,
     @Inject(CategoryService)
     private readonly categoryService: CategoryService
   ) {}
 
-  async create(createArticleDto: AddArticleInput): Promise<Article> {
+  async create(
+    createArticleDto: AddArticleInput,
+    currentUser
+  ): Promise<Article> {
     console.log(createArticleDto);
     const article = new this.articleModel({
       ...createArticleDto,

@@ -81,6 +81,17 @@ type Article {
   published_at: DateTime
 }
 
+"""The Auth model"""
+type Auth {
+  """Access token"""
+  token: String!
+
+  """Refresh access token"""
+  refreshToken: String!
+  tokenExpiration: Float!
+  refreshExpiration: Float!
+}
+
 """Category model"""
 type Category {
   _id: ObjectId!
@@ -123,6 +134,9 @@ type Mutation {
   addUser(user: AddUserInput!): User!
   editUser(user: EditUserInput!): User!
   deleteUser(userId: ObjectId!): ObjectId!
+  signIn(credentials: SignInUserInput!): Auth!
+  refreshToken(refreshToken: String!): Auth!
+  signUp(credentials: AddUserInput!): User
   addComment(articleId: ObjectId!, input: AddCommentInput!): Comment!
 }
 
@@ -143,6 +157,11 @@ enum Role {
   Admin
   Maintainer
   StandardUser
+}
+
+input SignInUserInput {
+  email: String!
+  password: String!
 }
 
 type User {

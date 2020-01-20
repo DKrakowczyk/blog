@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Args } from "@nestjs/graphql";
 import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
 import { Inject } from "@nestjs/common";
 import { Comment } from "./models/comment.schema";
-import { AddCommentInput } from "./models/addComments.input";
+import { AddCommentInput } from "./models/add-comments.input";
 import { CommentService } from "./comment.service";
 
 @Resolver(() => Comment)

@@ -2,7 +2,7 @@ import { Injectable, Inject } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { ReturnModelType } from "@typegoose/typegoose";
 import { Comment } from "./models/comment.schema";
-import { AddCommentInput } from "./models/addComments.input";
+import { AddCommentInput } from "./models/add-comments.input";
 import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
 import { ArticleService } from "../articles/article.service";
 @Injectable()
@@ -22,8 +22,7 @@ export class CommentService {
       articleId,
       new this.commentModel(createComment)
     );
-    const comment = article.comments.pop();
-    return comment;
+    return article.comments.pop();
   }
 
   async findAll(articleId: ObjectIdScalar): Promise<Comment[]> {

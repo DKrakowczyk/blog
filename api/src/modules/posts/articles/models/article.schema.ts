@@ -3,7 +3,7 @@ import { prop as Property, Ref, buildSchema } from "@typegoose/typegoose";
 import { User, UserSchema } from "src/modules/users/models/user.schema";
 
 import { Category } from "src/modules/categories/models/category.schema";
-import { Comment } from "src/modules/articles/comments/models/comment.schema";
+import { Comment } from "src/modules/posts/comments/models/comment.schema";
 import { ObjectId } from "bson";
 import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
 import { Schema } from "mongoose";
@@ -28,7 +28,7 @@ export class Article {
 
   @Field(type => User, { description: "Article author" })
   @Property({ ref: User, required: true })
-  author: Ref<User | ObjectId>;
+  author: Ref<User>;
 
   @Field({ description: "Is draft (true/false)" })
   @Property()

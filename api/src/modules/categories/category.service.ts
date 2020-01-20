@@ -3,7 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { ReturnModelType } from "@typegoose/typegoose";
 
 import { ObjectIdScalar } from "../common/scalars/object-id.scalar";
-import { ArticleService } from "../articles/articles/article.service";
+import { ArticleService } from "../posts/articles/article.service";
 import { Category } from "./models/category.schema";
 import { AddCategoryInput } from "./models/add-category.input";
 @Injectable()
