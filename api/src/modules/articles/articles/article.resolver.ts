@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args } from "@nestjs/graphql";
 import { ArticleService } from "./article.service";
 import { AddArticleInput } from "./models/article.input";
-import { ObjectIdScalar } from "../common/scalars/object-id.scalar";
+import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
 import { Article } from "./models/article.schema";
 import { Inject } from "@nestjs/common";
 

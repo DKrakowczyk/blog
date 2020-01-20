@@ -1,10 +1,13 @@
 import { Field, ObjectType } from "type-graphql";
-import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
+import { prop as Property, Ref, buildSchema } from "@typegoose/typegoose";
+import { User, UserSchema } from "src/modules/users/models/user.schema";
+
+import { Category } from "src/modules/categories/models/category.schema";
+import { Comment } from "src/modules/articles/comments/models/comment.schema";
 import { ObjectId } from "bson";
+import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
 import { Schema } from "mongoose";
-import { buildSchema, prop as Property } from "@typegoose/typegoose";
-import { Comment } from "src/modules/comments/models/comment.schema";
-import { User } from "src/modules/users/models/user.schema";
+
 @ObjectType({ description: "Article model" })
 export class Article {
   //
@@ -23,13 +26,23 @@ export class Article {
   @Property()
   body: string;
 
-  @Field({ description: "Article body" })
-  @Property()
-  author: User;
+  @Field(type => User, { description: "Article author" })
+  @Property({ ref: User, required: true })
+  author: Ref<User | ObjectIdScalar>;
 
   @Field({ description: "Is draft (true/false)" })
   @Property()
   isDraft: boolean;
+
+  @Field({ description: "Time to read" })
+  @Property()
+  timeToRead: number;
+
+  @Field(type => Category, {
+    description: "Categories for current post"
+  })
+  @Property({ ref: Category, required: false })
+  categories: Category;
 
   @Field(type => [Comment], {
     description: "Comments for current post",

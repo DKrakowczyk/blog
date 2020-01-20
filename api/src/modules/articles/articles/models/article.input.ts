@@ -1,11 +1,15 @@
-import { InputType, Field, Int } from "type-graphql";
+import { Field, InputType, Int } from "type-graphql";
 import {
+  IsBoolean,
+  IsDate,
   IsNotEmpty,
   Length,
-  IsDate,
-  IsBoolean,
   MinLength
 } from "class-validator";
+
+import { ObjectId } from "bson";
+import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
+import { User } from "src/modules/users/models/user.schema";
 
 @InputType()
 export class AddArticleInput {
@@ -22,10 +26,13 @@ export class AddArticleInput {
   @MinLength(0)
   body: string;
 
-  @Field({ description: "Add article body" })
-  author: string;
+  @Field(type => ObjectIdScalar, { description: "Add article body" })
+  author: ObjectId;
 
   @Field({ description: "Add is draft (true/false)" })
   @IsBoolean()
   isDraft: boolean;
+
+  @Field(type => ObjectIdScalar, { description: "Add category" })
+  categories?: ObjectId;
 }

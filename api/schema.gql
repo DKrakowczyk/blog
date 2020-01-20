@@ -14,10 +14,21 @@ input AddArticleInput {
   body: String!
 
   """Add article body"""
-  author: String!
+  author: ObjectId!
 
   """Add is draft (true/false)"""
   isDraft: Boolean!
+
+  """Add category"""
+  categories: ObjectId!
+}
+
+input AddCategoryInput {
+  """Category name"""
+  name: String!
+
+  """Category description"""
+  description: String!
 }
 
 input AddCommentInput {
@@ -48,11 +59,17 @@ type Article {
   """Article body"""
   body: String!
 
-  """Article body"""
-  author: String!
+  """Article author"""
+  author: User!
 
   """Is draft (true/false)"""
   isDraft: Boolean!
+
+  """Time to read"""
+  timeToRead: Float!
+
+  """Categories for current post"""
+  categories: Category!
 
   """Comments for current post"""
   comments: [Comment!]
@@ -64,6 +81,17 @@ type Article {
   published_at: DateTime
 }
 
+"""Category model"""
+type Category {
+  _id: ObjectId!
+
+  """Category name"""
+  name: String!
+
+  """Category description"""
+  description: String
+}
+
 """Comment model"""
 type Comment {
   _id: ObjectId!
@@ -72,7 +100,7 @@ type Comment {
   comment: String!
 
   """Comment author"""
-  author: String!
+  author: User!
 }
 
 """
@@ -90,11 +118,12 @@ type Mutation {
   createArticle(input: AddArticleInput!): Article!
   publishArticle(_id: ObjectId!): Article!
   deleteArticle(_id: ObjectId!): Article!
-  addComment(articleId: ObjectId!, input: AddCommentInput!): Comment!
+  addCategory(input: AddCategoryInput!): Category!
   removeComment(commentId: ObjectId!, articleId: ObjectId!): Comment!
   addUser(user: AddUserInput!): User!
   editUser(user: EditUserInput!): User!
   deleteUser(userId: ObjectId!): ObjectId!
+  addComment(articleId: ObjectId!, input: AddCommentInput!): Comment!
 }
 
 """Mongo object id scalar type"""
@@ -103,8 +132,10 @@ scalar ObjectId
 type Query {
   getAllArticles: [Article!]!
   getSingleArticle(_id: ObjectId!): Article!
-  getAllComments(articleId: ObjectId!): [Comment!]!
+  getAllCategories: [Category!]!
+  getCategory(categoryId: ObjectId!): Category!
   findAllUsers: [User!]!
+  getAllComments(articleId: ObjectId!): [Comment!]!
 }
 
 """Available user roles"""
@@ -117,7 +148,7 @@ enum Role {
 type User {
   _id: ObjectId!
   userName: String!
-  email: String
+  email: String!
   password: String
 
   """User role"""

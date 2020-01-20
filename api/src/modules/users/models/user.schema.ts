@@ -1,20 +1,21 @@
-import { buildSchema, prop as Property } from "@typegoose/typegoose";
-import { ObjectId } from "bson";
-import { Schema } from "mongoose";
 import { Field, ObjectType } from "type-graphql";
+import { prop as Property, buildSchema } from "@typegoose/typegoose";
+
+import { ObjectId } from "bson";
 import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
 import { Role } from "./role.enum";
+import { Schema } from "mongoose";
 
 @ObjectType()
 export class User {
-  @Field(() => ObjectIdScalar)
+  @Field(type => ObjectIdScalar)
   readonly _id: ObjectId;
 
   @Field()
-  @Property({ required: true })
+  @Property()
   userName: string;
 
-  @Field({ nullable: true })
+  @Field()
   @Property()
   email: string;
 
@@ -23,7 +24,7 @@ export class User {
   password: string;
 
   @Field(type => Role, { description: "User role" })
-  @Property({ required: true, enum: Role })
+  @Property({ enum: Role })
   role: Role;
 }
 

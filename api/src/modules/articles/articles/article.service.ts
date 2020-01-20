@@ -1,21 +1,36 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Inject } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { ReturnModelType } from "@typegoose/typegoose";
 import { AddArticleInput } from "./models/article.input";
 import { Article } from "./models/article.schema";
 import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
 import { Comment } from "../comments/models/comment.schema";
+import { UserService } from "src/modules/users/user.service";
+import { CategoryService } from "src/modules/categories/category.service";
+import { ObjectId } from "bson";
+// To calculate time to read variable
+const WORDS_PER_MINUTE = 200;
 @Injectable()
 export class ArticleService {
   constructor(
     @InjectModel(Article.name)
-    private readonly articleModel: ReturnModelType<typeof Article>
+    private readonly articleModel: ReturnModelType<typeof Article>,
+    @Inject(UserService)
+    private readonly userService: UserService,
+    @Inject(CategoryService)
+    private readonly categoryService: CategoryService
   ) {}
 
   async create(createArticleDto: AddArticleInput): Promise<Article> {
+    console.log(createArticleDto);
     const article = new this.articleModel({
       ...createArticleDto,
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
+      // author: createArticleDto.authorId,
+      // category: await this.categoryService.findOne(createArticleDto.categoryId),
+      timeToRead: Math.ceil(
+        createArticleDto.body.split(" ").length / WORDS_PER_MINUTE
+      )
     });
     return article.save();
   }

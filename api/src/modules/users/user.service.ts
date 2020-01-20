@@ -25,7 +25,7 @@ export class UserService {
   }
 
   async add(dto: AddUserInput): Promise<User> {
-    const alreadyExist = this.userModel.find({ email: dto.email });
+    const alreadyExist = await this.userModel.findOne({ email: dto.email });
     if (!alreadyExist) {
       const user = new this.userModel(dto);
       return user.save();
