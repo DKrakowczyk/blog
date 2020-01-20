@@ -28,7 +28,7 @@ export class Article {
 
   @Field(type => User, { description: "Article author" })
   @Property({ ref: User, required: true })
-  author: Ref<User | ObjectIdScalar>;
+  author: Ref<User | ObjectId>;
 
   @Field({ description: "Is draft (true/false)" })
   @Property()
