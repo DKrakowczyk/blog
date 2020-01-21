@@ -10,8 +10,7 @@ const resolvers = [UserResolver];
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-    CommonModule
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])
   ],
   providers: [...services, ...resolvers],
   exports: [UserService]

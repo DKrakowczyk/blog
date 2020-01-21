@@ -1,6 +1,5 @@
+import { buildSchema, prop as Property } from "@typegoose/typegoose";
 import { Field, ObjectType } from "type-graphql";
-import { prop as Property, buildSchema } from "@typegoose/typegoose";
-
 import { ObjectId } from "bson";
 import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
 import { Role } from "./role.enum";
@@ -12,14 +11,14 @@ export class User {
   readonly _id: ObjectId;
 
   @Field()
-  @Property()
+  @Property({ description: "User name" })
   userName: string;
 
-  @Field()
+  @Field({ description: "User email" })
   @Property()
   email: string;
 
-  @Field({ nullable: true })
+  @Field({ description: "User password", nullable: true })
   @Property()
   password: string;
 

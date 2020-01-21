@@ -1,12 +1,14 @@
-import { Injectable, Inject } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { ReturnModelType } from "@typegoose/typegoose";
-import { Comment } from "./models/comment.schema";
 import { AddCommentInput } from "./models/add-comments.input";
-import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
 import { ArticleService } from "../articles/article.service";
+import { Comment } from "./models/comment.schema";
+import { Inject, Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
+import { ReturnModelType } from "@typegoose/typegoose";
+
 @Injectable()
 export class CommentService {
+  //
   constructor(
     @InjectModel(Comment.name)
     private readonly commentModel: ReturnModelType<typeof Comment>,
@@ -15,12 +17,12 @@ export class CommentService {
   ) {}
 
   async create(
-    createComment: AddCommentInput,
+    createCommentDto: AddCommentInput,
     articleId: ObjectIdScalar
   ): Promise<Comment> {
     const article = await this.articleService.addComment(
       articleId,
-      new this.commentModel(createComment)
+      new this.commentModel(createCommentDto)
     );
     return article.comments.pop();
   }

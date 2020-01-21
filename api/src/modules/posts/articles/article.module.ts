@@ -1,10 +1,8 @@
 import { Article, ArticleSchema } from "./models/article.schema";
-import { Module, forwardRef } from "@nestjs/common";
-
 import { ArticleResolver } from "./article.resolver";
 import { ArticleService } from "./article.service";
 import { CategoryModule } from "src/modules/categories/category.module";
-import { CommonModule } from "../../common/common.module";
+import { forwardRef, Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { UserModule } from "src/modules/users/user.module";
 

@@ -1,9 +1,8 @@
-import { Field, ObjectType } from "type-graphql";
-import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
-import { ObjectId } from "bson";
-import { Schema } from "mongoose";
 import { buildSchema, prop as Property } from "@typegoose/typegoose";
-import { User } from "src/modules/users/models/user.schema";
+import { Field, ObjectType } from "type-graphql";
+import { ObjectId } from "bson";
+import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
+import { Schema } from "mongoose";
 
 @ObjectType({ description: "Category model" })
 export class Category {

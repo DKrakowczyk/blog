@@ -19,9 +19,9 @@ export class Auth {
   @Field({ description: "Refresh access token" })
   refreshToken: string;
 
-  @Field()
+  @Field({ description: "Token expiration time" })
   tokenExpiration: number;
 
-  @Field()
+  @Field({ description: "Refresh token expiration time" })
   refreshExpiration: number;
 }

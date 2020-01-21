@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@nestjs/common": "^6.7.2",
+    "@nestjs/config": "^1.4.5",
     "@nestjs/core": "^6.7.2",
     "@nestjs/graphql": "^6.5.3",
     "@nestjs/mongoose": "^6.1.2",
@@ -35,7 +36,8 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
-    "type-graphql": "^0.17.5"
+    "type-graphql": "^0.17.5",
+    "bcryptjs": "^2.4.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.0",

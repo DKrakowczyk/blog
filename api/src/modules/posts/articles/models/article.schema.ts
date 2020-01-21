@@ -1,12 +1,11 @@
-import { Field, ObjectType } from "type-graphql";
-import { prop as Property, Ref, buildSchema } from "@typegoose/typegoose";
-import { User, UserSchema } from "src/modules/users/models/user.schema";
-
+import { buildSchema, prop as Property, Ref } from "@typegoose/typegoose";
 import { Category } from "src/modules/categories/models/category.schema";
 import { Comment } from "src/modules/posts/comments/models/comment.schema";
+import { Field, ObjectType } from "type-graphql";
 import { ObjectId } from "bson";
 import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
 import { Schema } from "mongoose";
+import { User } from "src/modules/users/models/user.schema";
 
 @ObjectType({ description: "Article model" })
 export class Article {
@@ -39,7 +38,8 @@ export class Article {
   timeToRead: number;
 
   @Field(type => Category, {
-    description: "Categories for current post"
+    description: "Categories for current post",
+    nullable: true
   })
   @Property({ ref: Category, required: false })
   categories: Category;

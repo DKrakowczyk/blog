@@ -13,9 +13,6 @@ input AddArticleInput {
   """Add article body"""
   body: String!
 
-  """Add article body"""
-  author: ObjectId!
-
   """Add is draft (true/false)"""
   isDraft: Boolean!
 
@@ -69,7 +66,7 @@ type Article {
   timeToRead: Float!
 
   """Categories for current post"""
-  categories: Category!
+  categories: Category
 
   """Comments for current post"""
   comments: [Comment!]
@@ -88,7 +85,11 @@ type Auth {
 
   """Refresh access token"""
   refreshToken: String!
+
+  """Token expiration time"""
   tokenExpiration: Float!
+
+  """Refresh token expiration time"""
   refreshExpiration: Float!
 }
 
@@ -126,18 +127,18 @@ input EditUserInput {
 }
 
 type Mutation {
-  createArticle(input: AddArticleInput!): Article!
-  publishArticle(_id: ObjectId!): Article!
-  deleteArticle(_id: ObjectId!): Article!
+  createArticle(addArticle: AddArticleInput!): Article!
+  publishArticle(articleId: ObjectId!): Article!
+  deleteArticle(articleId: ObjectId!): Article!
   addCategory(input: AddCategoryInput!): Category!
   removeComment(commentId: ObjectId!, articleId: ObjectId!): Comment!
   addUser(user: AddUserInput!): User!
   editUser(user: EditUserInput!): User!
   deleteUser(userId: ObjectId!): ObjectId!
-  signIn(credentials: SignInUserInput!): Auth!
+  signUp(signUp: AddUserInput!): User!
+  signIn(signIn: SignInUserInput!): Auth!
   refreshToken(refreshToken: String!): Auth!
-  signUp(credentials: AddUserInput!): User
-  addComment(articleId: ObjectId!, input: AddCommentInput!): Comment!
+  addComment(articleId: ObjectId!, addComment: AddCommentInput!): Comment!
 }
 
 """Mongo object id scalar type"""
@@ -145,7 +146,7 @@ scalar ObjectId
 
 type Query {
   getAllArticles: [Article!]!
-  getSingleArticle(_id: ObjectId!): Article!
+  getSingleArticle(articleId: ObjectId!): Article!
   getAllCategories: [Category!]!
   getCategory(categoryId: ObjectId!): Category!
   findAllUsers: [User!]!
@@ -167,7 +168,11 @@ input SignInUserInput {
 type User {
   _id: ObjectId!
   userName: String!
+
+  """User email"""
   email: String!
+
+  """User password"""
   password: String
 
   """User role"""

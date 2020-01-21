@@ -4,7 +4,6 @@ import { Field, InputType } from "type-graphql";
 export class SignInUserInput {
   @Field()
   email: string;
-
   @Field()
   password: string;
 }

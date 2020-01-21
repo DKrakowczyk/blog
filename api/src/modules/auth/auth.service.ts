@@ -1,37 +1,39 @@
-import { Injectable, Inject } from "@nestjs/common";
-import { UserService } from "../users/user.service";
-import { AddUserInput } from "../users/models/add-user.input";
-import { Roles } from "./decorators/roles.decorator";
-import { Role } from "../users/models/role.enum";
-import { GraphQLError } from "graphql";
-import { sign, verify } from "jsonwebtoken";
 import { Auth } from "./models/auth.schema";
-import { User } from "../users/models/user.schema";
 import { compare, hash } from "bcryptjs";
+import { GraphQLError } from "graphql";
+import { Inject, Injectable } from "@nestjs/common";
+import { Role } from "../users/models/role.enum";
+import { sign, verify } from "jsonwebtoken";
+import { User } from "../users/models/user.schema";
+import { UserService } from "../users/user.service";
 
 @Injectable()
 export class AuthService {
+  //
   constructor(
     @Inject(UserService)
     public readonly userService: UserService
   ) {}
+
   async signUp(
     userName: string,
     email: string,
-    password: string
-  ): Promise<any> {
+    password: string,
+    role: Role
+  ): Promise<User> {
     const hashed = await hash(password, 10);
 
     const user = await this.userService.add({
       userName: userName,
       email: email,
       password: hashed,
-      role: Role.StandardUser
+      role: role
     });
 
     return user;
   }
-  async signIn(email: string, password: string): Promise<any> {
+
+  async signIn(email: string, password: string): Promise<Auth | GraphQLError> {
     const user = await this.userService.findOneByEmail(email);
 
     if (!user) return new GraphQLError("Incorrect email or password");
@@ -42,7 +44,7 @@ export class AuthService {
   }
 
   async refreshToken(email: string, refreshToken: string) {
-    const user = await verify(refreshToken, "aaaaa");
+    const user = await verify(refreshToken, process.env.JWT_REFRESH_SECRET);
     if (user && user.email === email)
       return await this.userService.findOneByEmail(email);
     else return null;
@@ -58,9 +60,13 @@ export class AuthService {
   }
 
   createJwt(user: User, isRefresh: boolean = false): any {
-    return sign({ id: user._id.toHexString(), email: user.email }, "aaaaa", {
-      //SEKRET DO ZMIANY NA .ENV
-      expiresIn: isRefresh ? parseInt("600", 10) : parseInt("600", 10)
-    });
+    return sign(
+      { id: user._id.toHexString(), email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        //SEKRET DO ZMIANY NA .ENV
+        expiresIn: isRefresh ? parseInt("600", 10) : parseInt("600", 10)
+      }
+    );
   }
 }
