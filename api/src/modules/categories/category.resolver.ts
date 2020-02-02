@@ -37,10 +37,10 @@ export class CategoryResolver {
     return this.categoryService.remove(categoryId);
   }
 
-  @Query(() => [Article])
-  async getFromCategory(
-    @Args("categoryId") categoryId: ObjectIdScalar
-  ): Promise<Article[]> {
-    return this.categoryService.getFromCategory(categoryId);
-  }
+  // @Query(() => [Article])
+  // async getFromCategory(
+  //   @Args("categoryId") categoryId: ObjectIdScalar
+  // ): Promise<Article[]> {
+  //   return this.categoryService.getFromCategory(categoryId);
+  // }
 }

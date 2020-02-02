@@ -20,7 +20,7 @@ import { User } from "src/modules/users/models/user.schema";
 import { Category } from "../../categories/models/category.schema";
 
 @Resolver(() => Article)
-@UseGuards(AuthGuard, RoleGuard)
+// @UseGuards(AuthGuard, RoleGuard)
 export class ArticleResolver {
   //
   constructor(
@@ -37,7 +37,7 @@ export class ArticleResolver {
     return this.articleService.resolveCategory(article.categories);
   }
 
-  @Roles(Role.Maintainer)
+  //@Roles(Role.Maintainer)
   @Query(() => [Article])
   async getAllArticles(): Promise<Article[]> {
     return this.articleService.findAll();

@@ -12,10 +12,9 @@ export class CategoryService {
   //
   constructor(
     @InjectModel(Category.name)
-    private readonly categoryModel: ReturnModelType<typeof Category>,
-    @Inject(ArticleService)
-    private readonly articleService: ArticleService
-  ) {}
+    private readonly categoryModel: ReturnModelType<typeof Category> // @Inject(ArticleService)
+  ) // private readonly articleService: ArticleService
+  {}
 
   async create(createCategoryDto: AddCategoryInput): Promise<Category> {
     return new this.categoryModel(createCategoryDto).save();
@@ -34,8 +33,8 @@ export class CategoryService {
     return category.remove();
   }
 
-  async getFromCategory(categoryId: ObjectIdScalar): Promise<Article[]> {
-    const articles = await this.articleService.findAll();
-    return articles.filter(article => article.categories._id === categoryId);
-  }
+  // async getFromCategory(categoryId: ObjectIdScalar): Promise<Article[]> {
+  //   const articles = await this.articleService.findAll();
+  //   return articles.filter(article => article.categories._id === categoryId);
+  // }
 }
