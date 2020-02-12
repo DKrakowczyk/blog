@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Layout, Row, Col, Menu, Breadcrumb, Icon, Collapse } from "antd";
+import { Layout, Row, Col, Menu, Breadcrumb, Divider, Collapse } from "antd";
 import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Sidebar } from "./sidebar/sidebar.component";
 import { ArticleList } from "./articles/article-list.component";
+import { CategoryList } from "./categories/category-list.component";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const { Panel } = Collapse;
@@ -23,14 +24,20 @@ function Dashboard() {
           </Breadcrumb>
           <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
             <Switch>
+              <Route path="/dashboard/main">
+                <Divider>Dashboard</Divider>
+              </Route>
               <Route path="/dashboard/articles">
                 <ArticleList />
+              </Route>
+              <Route path="/dashboard/categories">
+                <CategoryList />
               </Route>
             </Switch>
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          Ant Design ©2018 Created by Ant UED
+          blog-system ©2020 Created by DKrakowczyk
         </Footer>
       </Layout>
     </Layout>

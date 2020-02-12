@@ -25,24 +25,8 @@
 }
 
 .logo {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/5a/Firewatch_Logo.png");
-  height: 50px;
+  height: 60px;
   background-size: cover;
-}
-.ant-layout-sider {
-  background: #0f2027 !important; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to bottom,
-    #2c5364,
-    #203a43,
-    #0f2027
-  ) !important; /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to bottom,
-    #2c5364,
-    #203a43,
-    #0f2027
-  ) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .ant-menu-dark {

@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Avatar, Button } from "antd";
+import { List, Avatar, Button, Divider } from "antd";
 export const ArticleList = props => {
   const data = [
     {
@@ -16,26 +16,29 @@ export const ArticleList = props => {
     }
   ];
   return (
-    <List
-      itemLayout="horizontal"
-      dataSource={data}
-      renderItem={item => (
-        <List.Item>
-          <List.Item.Meta
-            avatar={
-              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-            }
-            title={<a href="https://ant.design">{item.title}</a>}
-            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-          />
-          <Button type="primary" ghost>
-            Preview
-          </Button>
-          <Button type="danger" ghost>
-            Delete
-          </Button>
-        </List.Item>
-      )}
-    />
+    <div>
+      <Divider>Articles</Divider>
+      <List
+        itemLayout="horizontal"
+        dataSource={data}
+        renderItem={item => (
+          <List.Item>
+            <List.Item.Meta
+              avatar={
+                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+              }
+              title={<a href="https://ant.design">{item.title}</a>}
+              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+            />
+            <Button type="primary" ghost>
+              Preview
+            </Button>
+            <Button type="danger" ghost>
+              Delete
+            </Button>
+          </List.Item>
+        )}
+      />
+    </div>
   );
 };
