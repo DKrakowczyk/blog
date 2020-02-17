@@ -60,7 +60,9 @@ export const CategoryList = props => {
   return (
     <div>
       <Content>
-        <Divider>Categories</Divider>
+        <Divider>
+          <Icon type="tag" /> Categories
+        </Divider>
         {categories.map(category => (
           <InlineCard
             key={category.title}

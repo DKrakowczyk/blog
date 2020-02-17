@@ -52,20 +52,35 @@ export const Sidebar = props => {
         </Menu.ItemGroup>
         <Menu.ItemGroup key="g2" title="Tools">
           <Menu.Item key="4">
-            <Icon type="heat-map" />
-            <span>Media</span>
+            <Link
+              to="/dashboard/media"
+              onClick={selectedKey => setSelectedKey(4)}
+            >
+              <Icon type="heat-map" />
+              <span>Media</span>
+            </Link>
           </Menu.Item>
-          <Menu.Item key="4">
-            <Icon type="bulb" />
-            <span>Ideas</span>
+          <Menu.Item key="5">
+            <Link
+              to="/dashboard/ideas"
+              onClick={selectedKey => setSelectedKey(5)}
+            >
+              <Icon type="bulb" />
+              <span>Ideas</span>
+            </Link>
           </Menu.Item>
         </Menu.ItemGroup>
         <Menu.ItemGroup key="g2" title="Management">
-          <Menu.Item key="5">
-            <Icon type="user" />
-            <span>Users</span>
-          </Menu.Item>
           <Menu.Item key="6">
+            <Link
+              to="/dashboard/users"
+              onClick={selectedKey => setSelectedKey(6)}
+            >
+              <Icon type="user" />
+              <span>Users</span>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="7">
             <Icon type="message" />
             <span>Comments</span>
           </Menu.Item>

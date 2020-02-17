@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Avatar, Button, Divider } from "antd";
+import { Icon, List, Avatar, Button, Divider } from "antd";
 export const ArticleList = props => {
   const data = [
     {
@@ -17,7 +17,9 @@ export const ArticleList = props => {
   ];
   return (
     <div>
-      <Divider>Articles</Divider>
+      <Divider>
+        <Icon type="rocket" /> Articles
+      </Divider>
       <List
         itemLayout="horizontal"
         dataSource={data}
