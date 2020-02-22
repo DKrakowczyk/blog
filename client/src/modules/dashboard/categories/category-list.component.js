@@ -19,6 +19,7 @@ import {
   ADD_CATEGORY,
   EDIT_CATEGORY
 } from "./categories.mutations";
+import { HelpButton, CategoriesHelp } from "../helpers/notification.helper";
 const { Meta } = Card;
 const { TextArea } = Input;
 export const CategoryList = props => {
@@ -174,6 +175,7 @@ export const CategoryList = props => {
     <div>
       <Spin spinning={loading}>
         <Content>
+          <HelpButton fn={CategoriesHelp} />
           <Divider>
             <Icon type="tag" /> Categories
           </Divider>

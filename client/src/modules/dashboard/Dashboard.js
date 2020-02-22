@@ -22,8 +22,31 @@ function Dashboard() {
         <Header style={{ background: "#fff", padding: 0 }} />
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            <Switch>
+              <Route path="/dashboard/main">
+                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+              </Route>
+              <Route path="/dashboard/articles">
+                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item>Articles</Breadcrumb.Item>
+              </Route>
+              <Route path="/dashboard/categories">
+                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item>Categories</Breadcrumb.Item>
+              </Route>
+              <Route path="/dashboard/media">
+                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item>Media</Breadcrumb.Item>
+              </Route>
+              <Route path="/dashboard/ideas">
+                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item>Ideas</Breadcrumb.Item>
+              </Route>
+              <Route path="/dashboard/users">
+                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item>Users</Breadcrumb.Item>
+              </Route>
+            </Switch>
           </Breadcrumb>
           <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
             <Switch>
