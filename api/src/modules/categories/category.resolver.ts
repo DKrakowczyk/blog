@@ -5,6 +5,7 @@ import { CategoryService } from "./category.service";
 import { Inject } from "@nestjs/common";
 import { ObjectIdScalar } from "../common/scalars/object-id.scalar";
 import { Article } from "../posts/articles/models/article.schema";
+import { EditCategoryInput } from "./models/edit-category.input";
 
 @Resolver(() => Category)
 export class CategoryResolver {
@@ -29,9 +30,15 @@ export class CategoryResolver {
   async addCategory(@Args("input") input: AddCategoryInput): Promise<Category> {
     return this.categoryService.create(input);
   }
+  @Mutation(() => Category)
+  async editCategory(
+    @Args("input") input: EditCategoryInput
+  ): Promise<Category> {
+    return this.categoryService.edit(input);
+  }
 
   @Mutation(() => Category)
-  async removeComment(
+  async removeCategory(
     @Args("categoryId") categoryId: ObjectIdScalar
   ): Promise<Category> {
     return this.categoryService.remove(categoryId);

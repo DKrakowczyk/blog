@@ -120,6 +120,17 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
+input EditCategoryInput {
+  """Category id"""
+  _id: ObjectId!
+
+  """Category name"""
+  name: String
+
+  """Category description"""
+  description: String
+}
+
 input EditUserInput {
   _id: ObjectId!
   userName: String
@@ -131,7 +142,8 @@ type Mutation {
   publishArticle(articleId: ObjectId!): Article!
   deleteArticle(articleId: ObjectId!): Article!
   addCategory(input: AddCategoryInput!): Category!
-  removeComment(commentId: ObjectId!, articleId: ObjectId!): Comment!
+  editCategory(input: EditCategoryInput!): Category!
+  removeCategory(categoryId: ObjectId!): Category!
   addUser(user: AddUserInput!): User!
   editUser(user: EditUserInput!): User!
   deleteUser(userId: ObjectId!): ObjectId!
@@ -139,6 +151,7 @@ type Mutation {
   signIn(signIn: SignInUserInput!): Auth!
   refreshToken(refreshToken: String!): Auth!
   addComment(articleId: ObjectId!, addComment: AddCommentInput!): Comment!
+  removeComment(commentId: ObjectId!, articleId: ObjectId!): Comment!
 }
 
 """Mongo object id scalar type"""
