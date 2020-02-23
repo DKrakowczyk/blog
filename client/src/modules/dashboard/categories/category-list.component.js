@@ -9,8 +9,7 @@ import {
   Button,
   Form,
   Empty,
-  Spin,
-  notification
+  Spin
 } from "antd";
 import styled from "styled-components";
 import { GET_ALL_CATEGORIES } from "./categories.queries";
@@ -19,7 +18,8 @@ import {
   ADD_CATEGORY,
   EDIT_CATEGORY
 } from "./categories.mutations";
-import { HelpButton, CategoriesHelp } from "../helpers/notification.helper";
+import { HelpButton, CategoriesHelp } from "../common/notification.helper";
+import { openNotification } from "../common/notification.component";
 const { Meta } = Card;
 const { TextArea } = Input;
 export const CategoryList = props => {
@@ -69,7 +69,6 @@ export const CategoryList = props => {
   });
 
   const handleSaveClick = async () => {
-    console.log(category);
     if (!isBeingEdited) {
       category._id = undefined;
       if (category.name.length && category.description.length) {
@@ -123,15 +122,6 @@ export const CategoryList = props => {
     } catch (error) {
       openNotification("error", "Oh no!", error.message);
     }
-  };
-
-  const openNotification = (type, message, description) => {
-    const args = {
-      message: message,
-      description: description,
-      duration: 2
-    };
-    notification[type](args);
   };
 
   const createCategoriesList =

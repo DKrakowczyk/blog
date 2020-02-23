@@ -11,6 +11,7 @@ import {
   Form,
   Typography
 } from "antd";
+import { HelpButton, MediaHelp } from "../common/notification.helper";
 import styled from "styled-components";
 const { Meta } = Card;
 const { TextArea } = Input;
@@ -43,6 +44,7 @@ export const MediaComponent = props => {
   return (
     <div>
       <Content>
+        <HelpButton fn={MediaHelp} />
         <Divider>
           <Icon type="heat-map" /> Media
         </Divider>

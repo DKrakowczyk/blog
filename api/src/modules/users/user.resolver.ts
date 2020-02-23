@@ -28,7 +28,7 @@ export class UserResolver {
     return this.usersService.edit(userInput);
   }
 
-  @Mutation(() => ObjectIdScalar)
+  @Mutation(() => User)
   async deleteUser(
     @Args({ name: "userId", type: () => ObjectIdScalar }) userId: ObjectId
   ): Promise<ObjectId> {

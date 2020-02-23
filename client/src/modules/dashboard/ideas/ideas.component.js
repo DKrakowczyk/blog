@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, notification, Collapse, Divider, Icon } from "antd";
-import { HelpButton, IdeasNotification } from "../helpers/notification.helper";
+import { HelpButton, IdeasHelp } from "../common/notification.helper";
 const { Panel } = Collapse;
 const text = (
   <p style={{ paddingLeft: 24 }}>
@@ -12,7 +12,7 @@ const text = (
 export const IdeasComponent = props => {
   return (
     <div>
-      <HelpButton fn={IdeasNotification} />
+      <HelpButton fn={IdeasHelp} />
       <Divider>
         <Icon type="bulb" /> Ideas
       </Divider>

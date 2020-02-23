@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Row, Icon, Menu, Breadcrumb, Divider, Collapse } from "antd";
+import { Layout, Row, Icon, Menu, Divider, Collapse } from "antd";
 import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Sidebar } from "./sidebar/sidebar.component";
@@ -8,6 +8,7 @@ import { CategoryList } from "./categories/category-list.component";
 import { MediaComponent } from "./media/media.component";
 import { IdeasComponent } from "./ideas/ideas.component";
 import { UsersList } from "./users/users-list.component";
+import { Breadcrumbs } from "./common/breadcrumbs.component";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const { Panel } = Collapse;
@@ -21,33 +22,7 @@ function Dashboard() {
       <Layout>
         <Header style={{ background: "#fff", padding: 0 }} />
         <Content style={{ margin: "0 16px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Switch>
-              <Route path="/dashboard/main">
-                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-              </Route>
-              <Route path="/dashboard/articles">
-                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                <Breadcrumb.Item>Articles</Breadcrumb.Item>
-              </Route>
-              <Route path="/dashboard/categories">
-                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                <Breadcrumb.Item>Categories</Breadcrumb.Item>
-              </Route>
-              <Route path="/dashboard/media">
-                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                <Breadcrumb.Item>Media</Breadcrumb.Item>
-              </Route>
-              <Route path="/dashboard/ideas">
-                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                <Breadcrumb.Item>Ideas</Breadcrumb.Item>
-              </Route>
-              <Route path="/dashboard/users">
-                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-                <Breadcrumb.Item>Users</Breadcrumb.Item>
-              </Route>
-            </Switch>
-          </Breadcrumb>
+          <Breadcrumbs />
           <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
             <Switch>
               <Route path="/dashboard/main">

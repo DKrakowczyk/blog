@@ -146,7 +146,7 @@ type Mutation {
   removeCategory(categoryId: ObjectId!): Category!
   addUser(user: AddUserInput!): User!
   editUser(user: EditUserInput!): User!
-  deleteUser(userId: ObjectId!): ObjectId!
+  deleteUser(userId: ObjectId!): User!
   signUp(signUp: AddUserInput!): User!
   signIn(signIn: SignInUserInput!): Auth!
   refreshToken(refreshToken: String!): Auth!

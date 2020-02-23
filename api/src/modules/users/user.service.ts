@@ -49,13 +49,13 @@ export class UserService {
     return user.save();
   }
 
-  async delete(id: ObjectId): Promise<ObjectId> {
+  async delete(id: ObjectId): Promise<User> {
     const user = await this.userModel.findById(id);
     if (!user) {
       throw new Error(`User with id: "${id}" not found.`);
     }
 
     await user.remove();
-    return id;
+    return user;
   }
 }

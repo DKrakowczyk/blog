@@ -19,7 +19,7 @@ export const Sidebar = props => {
       onCollapse={isCollapsed => setCollapsed(isCollapsed)}
       theme="light"
     >
-      <div className="logo" />
+      {!collapsed ? <div className="logo" /> : <div className="logo-small" />}
       <Menu defaultSelectedKeys={[{ selectedKey }]}>
         <Menu.ItemGroup key="g1" title="Blog">
           <Menu.Item key="1">
@@ -27,7 +27,7 @@ export const Sidebar = props => {
               to="/dashboard/main"
               onClick={selectedKey => setSelectedKey(1)}
             >
-              <Icon type="dashboard" />
+              <Icon type="dashboard" color="red" />
               <span>Dashboard</span>
             </Link>
           </Menu.Item>
@@ -49,9 +49,18 @@ export const Sidebar = props => {
               <span>Categories</span>
             </Link>
           </Menu.Item>
+          <Menu.Item key="4">
+            <Link
+              to="/dashboard/categories"
+              onClick={selectedKey => setSelectedKey(3)}
+            >
+              <Icon type="environment" />
+              <span>About</span>
+            </Link>
+          </Menu.Item>
         </Menu.ItemGroup>
         <Menu.ItemGroup key="g2" title="Tools">
-          <Menu.Item key="4">
+          <Menu.Item key="5">
             <Link
               to="/dashboard/media"
               onClick={selectedKey => setSelectedKey(4)}
@@ -60,7 +69,7 @@ export const Sidebar = props => {
               <span>Media</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="5">
+          <Menu.Item key="6">
             <Link
               to="/dashboard/ideas"
               onClick={selectedKey => setSelectedKey(5)}
@@ -70,8 +79,8 @@ export const Sidebar = props => {
             </Link>
           </Menu.Item>
         </Menu.ItemGroup>
-        <Menu.ItemGroup key="g2" title="Management">
-          <Menu.Item key="6">
+        <Menu.ItemGroup key="g3" title="Management">
+          <Menu.Item key="7">
             <Link
               to="/dashboard/users"
               onClick={selectedKey => setSelectedKey(6)}
@@ -80,9 +89,9 @@ export const Sidebar = props => {
               <span>Users</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="7">
-            <Icon type="message" />
-            <span>Comments</span>
+          <Menu.Item key="8">
+            <Icon type="setting" />
+            <span>Settings</span>
           </Menu.Item>
         </Menu.ItemGroup>
       </Menu>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon, List, Avatar, Button, Divider } from "antd";
+import { HelpButton, ArticlesHelp } from "../common/notification.helper";
 export const ArticleList = props => {
   const data = [
     {
@@ -17,6 +18,7 @@ export const ArticleList = props => {
   ];
   return (
     <div>
+      <HelpButton fn={ArticlesHelp} />
       <Divider>
         <Icon type="rocket" /> Articles
       </Divider>
@@ -32,6 +34,11 @@ export const ArticleList = props => {
             <Button type="primary" ghost>
               Preview
             </Button>
+            <Divider type="vertical" />
+            <Button type="primary" ghost>
+              Edit
+            </Button>
+            <Divider type="vertical" />
             <Button type="danger" ghost>
               Delete
             </Button>
