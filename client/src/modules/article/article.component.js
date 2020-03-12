@@ -1,7 +1,15 @@
 import { useQuery } from "@apollo/react-hooks";
 import React from "react";
 import styled from "styled-components";
-import { Layout, Row, Col, Card } from "antd";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardImg,
+  CardBody,
+  CardFooter,
+  Button
+} from "shards-react";
 const ArticleWrapper = styled.article`
   background: #fff;
   border-radius: 15px;
@@ -68,24 +76,14 @@ export const ArtcleBox = props => {
   //     );
 
   return (
-    <ArticleWrapper>
-      <ArticleHeader>
-        <FeaturedImage>
-          <Cover></Cover>
-        </FeaturedImage>
-      </ArticleHeader>
-      <Content>
-        <h3 className="date"> April 26, 2019</h3>
-        <Separator />
-        <h1 className="title"> Title of the article</h1>
-
-        <p>{props.text}</p>
-        <Separator />
-        <Row gutter={[16, 8]}>
-          <Col span={12}>SSSSS</Col>
-          <Col span={12}>aaaaaa</Col>
-        </Row>
-      </Content>
-    </ArticleWrapper>
+    <Card style={{ maxWidth: "300px" }}>
+      <CardImg src="https://place-hold.it/300x200" />
+      <CardBody>
+        <CardTitle>Lorem Ipsum</CardTitle>
+        <p>Lorem ipsum dolor sit amet.</p>
+        <Button>Read more &rarr;</Button>
+      </CardBody>
+      <CardFooter>Card footer</CardFooter>
+    </Card>
   );
 };

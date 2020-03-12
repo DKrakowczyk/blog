@@ -1,9 +1,25 @@
+.navbar-landing {
+  margin: auto;
+  text-align: center;
+
+  /*media*/
+}
+.nav-landing {
+  margin: auto;
+  font-size: 30px;
+}
+
+.landing-divider {
+  border: solid 0.5px rgb(143, 140, 140);
+  width: 80%;
+  padding: 0;
+  margin: auto;
+  margin-bottom: 20px;
+}
 .my-masonry-grid {
   display: -webkit-box; /* Not needed if autoprefixing */
   display: -ms-flexbox; /* Not needed if autoprefixing */
   display: flex;
-  margin-top: 50px; /* gutter size offset */
-  width: 90%;
   margin: auto;
 }
 .my-masonry-grid_column {
@@ -41,4 +57,53 @@
 
 .ant-menu-dark {
   background: none !important;
+}
+
+.landing-wrapper {
+  width: 100%;
+  height: 100%;
+
+  background: #1d4350; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to top,
+    #a43931,
+    #1d4350
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #a43931,
+    #1d4350
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  color: #fff;
+}
+.landing-wrapper p {
+  color: black;
+}
+.landing-container {
+  background: none;
+}
+
+.landing-latest {
+  color: #000;
+}
+
+.landing-categories {
+  margin: auto;
+  text-align: right;
+}
+.landing-categories * {
+  margin: 5px;
+}
+.card-custom {
+  background: none;
+  box-shadow: none;
+}
+.card-custom-title {
+  color: #fff;
+  font-size: 25px;
+}
+.card-custom-text {
+  color: #fff !important;
+  font-size: 20px;
 }
