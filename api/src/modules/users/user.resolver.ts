@@ -34,4 +34,11 @@ export class UserResolver {
   ): Promise<ObjectId> {
     return this.usersService.delete(userId);
   }
+
+  @Mutation(() => User)
+  async switchRoles(
+    @Args({ name: "userId", type: () => ObjectIdScalar }) userId: ObjectId
+  ): Promise<ObjectId> {
+    return this.usersService.switchRoles(userId);
+  }
 }

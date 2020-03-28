@@ -1,6 +1,6 @@
 import { notification, Icon } from "antd";
+// eslint-disable-next-line
 import React from "react";
-import { Button } from "antd";
 import styled from "styled-components";
 
 const placement = "bottomRight";
@@ -19,6 +19,17 @@ export const ArticlesHelp = () => {
     description:
       "Do you have new article idea? Create a new one, edit previous articles and delete them when you want.",
     icon: <Icon type="rocket" style={{ color: "#108ee9" }} />,
+    duration: duration,
+    placement
+  });
+};
+
+export const AboutHelp = () => {
+  notification.open({
+    message: "Bio",
+    description:
+      "Want to share your bio with your subscribers? Simply edit it right there!",
+    icon: <Icon type="environment" style={{ color: "#108ee9" }} />,
     duration: duration,
     placement
   });
@@ -61,7 +72,7 @@ export const UsersHelp = () => {
   notification.open({
     message: "Users",
     description:
-      "Here you can track the activity of signed-up users. See their comments and ratings. You can also edit or remove them as administrator of the page.",
+      "Here you can switch the roles of signed-up users. You can also delete them if you wish...",
     icon: <Icon type="user" style={{ color: "#108ee9" }} />,
     duration: duration,
     placement

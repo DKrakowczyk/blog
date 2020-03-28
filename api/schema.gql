@@ -3,6 +3,43 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+"""About model"""
+type About {
+  _id: ObjectId!
+
+  """About details"""
+  about: String
+
+  """About facebook url"""
+  facebook: String
+
+  """About instagram url"""
+  instagram: String
+
+  """About twitter url"""
+  twitter: String
+
+  """About linkedIn url"""
+  linkedIn: String
+}
+
+input AboutInput {
+  """About description"""
+  about: String
+
+  """About facebook url"""
+  facebook: String
+
+  """About instagram url"""
+  instagram: String
+
+  """About twitter url"""
+  twitter: String
+
+  """About linkedIn url"""
+  linkedIn: String
+}
+
 input AddArticleInput {
   """Add article title"""
   title: String!
@@ -15,6 +52,9 @@ input AddArticleInput {
 
   """Add is draft (true/false)"""
   isDraft: Boolean!
+
+  """Add article description"""
+  heroImg: String
 
   """Add category"""
   categories: ObjectId!
@@ -40,7 +80,7 @@ input AddUserInput {
   userName: String!
   email: String!
   password: String!
-  role: Role!
+  role: Role
 }
 
 """Article model"""
@@ -61,6 +101,9 @@ type Article {
 
   """Is draft (true/false)"""
   isDraft: Boolean!
+
+  """Add article description"""
+  heroImg: String
 
   """Time to read"""
   timeToRead: Float!
@@ -120,6 +163,29 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
+input EditArticleInput {
+  """Article id"""
+  _id: ObjectId!
+
+  """Add article title"""
+  title: String
+
+  """Add article description"""
+  description: String
+
+  """Add article body"""
+  body: String
+
+  """Add is draft (true/false)"""
+  isDraft: Boolean
+
+  """Add article description"""
+  heroImg: String
+
+  """Add category"""
+  categories: ObjectId
+}
+
 input EditCategoryInput {
   """Category id"""
   _id: ObjectId!
@@ -139,7 +205,9 @@ input EditUserInput {
 
 type Mutation {
   createArticle(addArticle: AddArticleInput!): Article!
+  editArticle(editArticle: EditArticleInput!): Article!
   publishArticle(articleId: ObjectId!): Article!
+  unpublishArticle(articleId: ObjectId!): Article!
   deleteArticle(articleId: ObjectId!): Article!
   addCategory(input: AddCategoryInput!): Category!
   editCategory(input: EditCategoryInput!): Category!
@@ -147,11 +215,14 @@ type Mutation {
   addUser(user: AddUserInput!): User!
   editUser(user: EditUserInput!): User!
   deleteUser(userId: ObjectId!): User!
+  switchRoles(userId: ObjectId!): User!
   signUp(signUp: AddUserInput!): User!
   signIn(signIn: SignInUserInput!): Auth!
   refreshToken(refreshToken: String!): Auth!
   addComment(articleId: ObjectId!, addComment: AddCommentInput!): Comment!
   removeComment(commentId: ObjectId!, articleId: ObjectId!): Comment!
+  addAbout(about: AboutInput!): About!
+  editAbout(about: AboutInput!): About!
 }
 
 """Mongo object id scalar type"""
@@ -159,11 +230,13 @@ scalar ObjectId
 
 type Query {
   getAllArticles: [Article!]!
+  getArticlesExcept(articleId: ObjectId!): [Article!]!
   getSingleArticle(articleId: ObjectId!): Article!
   getAllCategories: [Category!]!
   getCategory(categoryId: ObjectId!): Category!
   findAllUsers: [User!]!
   getAllComments(articleId: ObjectId!): [Comment!]!
+  getAbout: About!
 }
 
 """Available user roles"""

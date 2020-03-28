@@ -8,6 +8,7 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { UserModule } from "./modules/users/user.module";
+import { AboutModule } from "./modules/about/about.module";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { UserModule } from "./modules/users/user.module";
     CommonModule,
     UserModule,
     CategoryModule,
+    AboutModule,
     AuthModule,
     ConfigModule.forRoot(),
     GraphQLModule.forRoot({

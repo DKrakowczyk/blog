@@ -10,6 +10,7 @@ import { CategoryService } from "src/modules/categories/category.service";
 import { User } from "../../users/models/user.schema";
 import { ObjectId } from "bson";
 import { Category } from "../../categories/models/category.schema";
+import { EditArticleInput } from "./models/edit-article.input";
 // To calculate time to read variable
 const WORDS_PER_MINUTE = 200;
 
@@ -33,14 +34,11 @@ export class ArticleService {
     return this.categoryService.findOne(category);
   }
 
-  async create(
-    createArticleDto: AddArticleInput,
-    currentUser
-  ): Promise<Article> {
+  async create(createArticleDto: AddArticleInput): Promise<Article> {
     const article = new this.articleModel({
       ...createArticleDto,
       created_at: new Date().toISOString(),
-      author: currentUser.id,
+      //author: currentUser.id,
       timeToRead: Math.ceil(
         createArticleDto.body.split(" ").length / WORDS_PER_MINUTE
       )
@@ -48,17 +46,50 @@ export class ArticleService {
     return article.save();
   }
 
+  async edit(editArticleDto: EditArticleInput): Promise<Article> {
+    const article = await this.articleModel.findOne(editArticleDto._id);
+    article.title =
+      editArticleDto.title && editArticleDto.title
+        ? editArticleDto.title
+        : article.title;
+    article.description =
+      editArticleDto.description && editArticleDto.description
+        ? editArticleDto.description
+        : article.description;
+    article.body =
+      editArticleDto.body && editArticleDto.body
+        ? editArticleDto.body
+        : article.body;
+    article.isDraft =
+      editArticleDto.isDraft && editArticleDto.isDraft
+        ? editArticleDto.isDraft
+        : article.isDraft;
+    article.categories =
+      editArticleDto.categories && editArticleDto.categories
+        ? editArticleDto.categories
+        : article.categories;
+    return article.save();
+  }
+
   async findAll(): Promise<Article[]> {
     return this.articleModel.find().exec();
   }
+  async findAllExcept(articleId: ObjectIdScalar): Promise<Article[]> {
+    const articles = await this.articleModel
+      .find({ _id: { $ne: articleId } })
+      .exec();
+    const shuffled = articles.sort(() => 0.5 - Math.random());
 
-  async findOne(articleId: ObjectIdScalar): Promise<Article> {
-    return this.articleModel.findById(articleId).exec();
+    return shuffled.slice(0, 4);
   }
 
-  async publish(articleId: ObjectIdScalar): Promise<Article> {
+  async findOne(articleId: ObjectIdScalar): Promise<Article> {
+    return await this.articleModel.findById(articleId).exec();
+  }
+
+  async publish(articleId: ObjectIdScalar, isDraft: boolean): Promise<Article> {
     const article = await this.articleModel.findById(articleId).exec();
-    article.isDraft = false;
+    article.isDraft = isDraft;
     article.published_at = new Date().toISOString();
     return article.save();
   }

@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Layout, Row, Col, Menu, Breadcrumb, Icon, Collapse } from "antd";
-import styled from "styled-components";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+import { Icon, Layout, Menu } from "antd";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+const { Sider } = Layout;
 export const Sidebar = props => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedKey, setSelectedKey] = useState(1);
@@ -51,22 +49,22 @@ export const Sidebar = props => {
           </Menu.Item>
           <Menu.Item key="4">
             <Link
-              to="/dashboard/categories"
+              to="/dashboard/about"
               onClick={selectedKey => setSelectedKey(3)}
             >
               <Icon type="environment" />
-              <span>About</span>
+              <span>Bio</span>
             </Link>
           </Menu.Item>
         </Menu.ItemGroup>
         <Menu.ItemGroup key="g2" title="Tools">
           <Menu.Item key="5">
             <Link
-              to="/dashboard/media"
+              to="/dashboard/social"
               onClick={selectedKey => setSelectedKey(4)}
             >
               <Icon type="heat-map" />
-              <span>Media</span>
+              <span>Social</span>
             </Link>
           </Menu.Item>
           <Menu.Item key="6">

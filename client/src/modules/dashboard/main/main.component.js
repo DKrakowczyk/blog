@@ -1,20 +1,6 @@
+import { Calendar, Col, Divider, Icon, Row, Statistic } from "antd";
 import React from "react";
-import { Formik } from "formik";
-import {
-  Statistic,
-  Row,
-  Col,
-  Icon,
-  Divider,
-  Descriptions,
-  Calendar,
-  Input
-} from "antd";
 export const MainComponent = props => {
-  const onPanelChange = (value, mode) => {
-    console.log(value, mode);
-  };
-
   return (
     <div>
       <Divider>
@@ -61,9 +47,7 @@ export const MainComponent = props => {
           border: "1px solid #d9d9d9",
           borderRadius: 4
         }}
-      >
-        <Calendar fullscreen={false} onPanelChange={onPanelChange} />
-      </div>
+      ></div>
     </div>
   );
 };

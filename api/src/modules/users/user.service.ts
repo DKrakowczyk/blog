@@ -58,4 +58,17 @@ export class UserService {
     await user.remove();
     return user;
   }
+  async switchRoles(id: ObjectId): Promise<User> {
+    const user = await this.userModel.findById(id);
+    if (!user) {
+      throw new Error(`User with id: "${id}" not found.`);
+    }
+    if (user.role === Role.StandardUser) {
+      user.role = Role.Admin;
+      return user.save();
+    } else if (user.role === Role.Admin) {
+      user.role = Role.StandardUser;
+      return user.save();
+    }
+  }
 }

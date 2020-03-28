@@ -12,6 +12,6 @@ export class AddUserInput {
   @Field()
   password: string;
 
-  @Field(type => Role)
-  role: Role;
+  @Field(type => Role, { nullable: true })
+  role?: Role;
 }

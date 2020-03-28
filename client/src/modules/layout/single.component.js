@@ -1,40 +1,27 @@
+import { useQuery } from "@apollo/react-hooks";
+import { Avatar, Comment, Empty, List } from "antd";
 import React from "react";
+import { useParams } from "react-router-dom";
 import {
-  Row,
-  Col,
-  Container,
+  Button,
   Card,
   CardBody,
-  CardTitle,
+  CardFooter,
   CardSubtitle,
-  CardImg,
-  Button,
-  FormTextarea
+  CardTitle,
+  Col,
+  Container,
+  FormTextarea,
+  Row
 } from "shards-react";
-import { List, Avatar, Comment, Empty } from "antd";
-import { ArticleGallery } from "../article/articleGallery.component";
-import { NavbarLanding } from "../navbar/navbar.component";
-import { FooterSection } from "../footer/footer.component";
 import styled from "styled-components";
-
-const data = [
-  {
-    title: "Ant Design Title 1"
-  },
-  {
-    title: "Ant Design Title 2"
-  },
-  {
-    title: "Ant Design Title 3"
-  },
-  {
-    title: "Ant Design Title 1"
-  },
-  {
-    title: "Ant Design Title 2"
-  }
-];
-
+import { FooterSection } from "../footer/footer.component";
+import {
+  GET_RANDOM_ARTICLES,
+  GET_SINGLE_ARTICLE
+} from "../gql/articles.queries";
+import { NavbarLanding } from "../navbar/navbar.component";
+import { LoaderComponent } from "../layout/loader.component";
 const Content = styled.div`
   font-size: 24px;
   color: #000;
@@ -54,70 +41,86 @@ const ShadowCard = styled(Card)`
 `;
 
 export const SingleArticleLayout = props => {
+  const { articleId } = useParams();
+  const { data: dataRandom } = useQuery(GET_RANDOM_ARTICLES, {
+    variables: { articleId }
+  });
+  const { loading, data } = useQuery(GET_SINGLE_ARTICLE, {
+    variables: { articleId }
+  });
+
+  const article = data && data.getSingleArticle ? data.getSingleArticle : null;
+  const random =
+    dataRandom && dataRandom.getArticlesExcept
+      ? dataRandom.getArticlesExcept
+      : null;
+
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  };
+  const date = article
+    ? new Date(article.created_at).toLocaleDateString("en-US", options)
+    : "";
+  const Article = article ? (
+    <ShadowCard>
+      <CardBody>
+        <CardTitle>{article.title} </CardTitle>
+        <CardSubtitle>
+          Added by DKrakowczyk on {date} - {article.timeToRead}
+          min read
+        </CardSubtitle>
+        <Content dangerouslySetInnerHTML={{ __html: article.body }}></Content>
+        <hr />
+      </CardBody>
+      <CardFooter>
+        <Button style={{ float: "right" }} outline squared theme="dark">
+          {article.categories.name}
+        </Button>
+      </CardFooter>
+    </ShadowCard>
+  ) : (
+    <Empty />
+  );
+
+  const Random =
+    random && random.length ? (
+      <List
+        itemLayout="horizontal"
+        dataSource={random}
+        renderItem={item => (
+          <List.Item>
+            <List.Item.Meta
+              avatar={<Avatar src={item.heroImg} />}
+              title={<a href={`/articles/${item._id}`}>{item.title}</a>}
+              description={item.description.slice(0, 100)}
+            />
+          </List.Item>
+        )}
+      />
+    ) : (
+      <Empty />
+    );
+
   return (
     <div className="landing-wrapper">
+      <LoaderComponent show={loading} />
+
       <Container className="landing-container">
         <NavbarLanding />
         <div className="landing-divider" />
         <Row>
           <Col sm="8" md="8" lg="8">
-            <ShadowCard>
-              <CardBody>
-                <CardTitle>Sample article title</CardTitle>
-                <CardSubtitle> Added by DKrakowczyk 2 months ago</CardSubtitle>
-
-                <Content>
-                  Welcome, it's great to have you here. We know that first
-                  impressions are important, so we've populated your new site
-                  with some initial getting started posts that will help you get
-                  familiar with everything in no time.
-                  <br />
-                  <br />
-                  This is the first one! A few things you should know upfront:
-                  Ghost is designed for ambitious, professional publishers who
-                  want to actively build a business around their content. That's
-                  who it works best for.
-                  <br />
-                  <br />
-                  <CardImg
-                    top
-                    src="http://ghost.estudiopatagon.com/breek/content/images/2019/05/9294-3.jpg"
-                  />
-                  <br />
-                  <br />
-                  The entire platform can be modified and customised to suit
-                  your needs. It's very powerful, but does require some
-                  knowledge of code. Ghost is not necessarily a good platform
-                  for beginners or people who just want a simple personal blog.
-                  For the best experience we recommend downloading the Ghost
-                  Desktop App for your computer, which is the best way to access
-                  your Ghost site on a desktop device.
-                </Content>
-                <hr />
-              </CardBody>
-            </ShadowCard>
+            {Article}
           </Col>
           <Col sm="4" md="4" lg="4">
             <FixedCard>
               <CardBody>
                 <CardTitle>Related Articles</CardTitle>
                 <CardSubtitle> Find something interesting</CardSubtitle>
-                <List
-                  itemLayout="horizontal"
-                  dataSource={data}
-                  renderItem={item => (
-                    <List.Item>
-                      <List.Item.Meta
-                        avatar={
-                          <Avatar src="http://ghost.estudiopatagon.com/breek/content/images/2019/05/9294-3.jpg" />
-                        }
-                        title={<a href="https://ant.design">{item.title}</a>}
-                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                      />
-                    </List.Item>
-                  )}
-                />
-                ,
+                {Random}
               </CardBody>
             </FixedCard>
           </Col>
@@ -131,7 +134,7 @@ export const SingleArticleLayout = props => {
                 <CardTitle>Comments</CardTitle>
 
                 <div>
-                  <p className="mb-2">🤔 Waiting for you to say something...</p>
+                  <p className="mb-2"> Waiting for you to say something...</p>
                   <FormTextarea />
                   <Button
                     outline
@@ -139,7 +142,7 @@ export const SingleArticleLayout = props => {
                     theme="dark"
                     style={{ marginTop: "20px", float: "right" }}
                   >
-                    Dark
+                    Post a comment
                   </Button>
                 </div>
                 <br />
@@ -181,6 +184,3 @@ export const SingleArticleLayout = props => {
     </div>
   );
 };
-
-{
-}

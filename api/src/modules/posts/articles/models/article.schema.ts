@@ -18,7 +18,7 @@ export class Article {
   title: string;
 
   @Field({ description: "Article description", nullable: true })
-  @Property({ required: false, maxlength: 200 })
+  @Property({ required: false })
   description: string;
 
   @Field({ description: "Article body" })
@@ -26,12 +26,16 @@ export class Article {
   body: string;
 
   @Field(type => User, { description: "Article author" })
-  @Property({ ref: User, required: true })
+  @Property({ ref: User, required: false })
   author: Ref<User>;
 
   @Field({ description: "Is draft (true/false)" })
   @Property()
   isDraft: boolean;
+
+  @Field({ description: "Add article description", nullable: true })
+  @Property()
+  heroImg: string;
 
   @Field({ description: "Time to read" })
   @Property()

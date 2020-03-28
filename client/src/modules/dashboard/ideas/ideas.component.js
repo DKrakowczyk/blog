@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Button, notification, Collapse, Divider, Icon } from "antd";
+import { Collapse, Divider, Icon } from "antd";
+import React from "react";
 import { HelpButton, IdeasHelp } from "../common/notification.helper";
 const { Panel } = Collapse;
 const text = (

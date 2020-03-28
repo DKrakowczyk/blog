@@ -18,6 +18,7 @@ import { RoleGuard } from "../../auth/guards/roles.guard";
 import { Roles } from "../../auth/decorators/roles.decorator";
 import { User } from "src/modules/users/models/user.schema";
 import { Category } from "../../categories/models/category.schema";
+import { EditArticleInput } from "./models/edit-article.input";
 
 @Resolver(() => Article)
 // @UseGuards(AuthGuard, RoleGuard)
@@ -43,25 +44,46 @@ export class ArticleResolver {
     return this.articleService.findAll();
   }
 
+  @Query(() => [Article])
+  async getArticlesExcept(
+    @Args("articleId") articleId: ObjectIdScalar
+  ): Promise<Article[]> {
+    return this.articleService.findAllExcept(articleId);
+  }
+
   @Query(() => Article)
   async getSingleArticle(
     @Args("articleId") articleId: ObjectIdScalar
   ): Promise<Article> {
-    return this.articleService.findOne(articleId);
+    return await this.articleService.findOne(articleId);
   }
+
   @Mutation(() => Article)
   async createArticle(
-    @Args("addArticle") addArticle: AddArticleInput,
-    @Context("user") currentUser
+    @Args("addArticle") addArticle: AddArticleInput
+    // @Context("user") currentUser
   ): Promise<Article> {
-    return this.articleService.create(addArticle, currentUser);
+    return this.articleService.create(addArticle);
+  }
+  @Mutation(() => Article)
+  async editArticle(
+    @Args("editArticle") editArticle: EditArticleInput
+  ): Promise<Article> {
+    return this.articleService.edit(editArticle);
   }
 
   @Mutation(() => Article)
   async publishArticle(
     @Args("articleId") articleId: ObjectIdScalar
   ): Promise<Article> {
-    return this.articleService.publish(articleId);
+    return this.articleService.publish(articleId, false);
+  }
+
+  @Mutation(() => Article)
+  async unpublishArticle(
+    @Args("articleId") articleId: ObjectIdScalar
+  ): Promise<Article> {
+    return this.articleService.publish(articleId, true);
   }
 
   @Mutation(() => Article)

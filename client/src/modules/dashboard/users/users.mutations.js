@@ -7,3 +7,11 @@ export const REMOVE_USER = gql`
     }
   }
 `;
+
+export const SWITCH_ROLES = gql`
+  mutation switchRoles($userId: ObjectId!) {
+    switchRoles(userId: $userId) {
+      role
+    }
+  }
+`;

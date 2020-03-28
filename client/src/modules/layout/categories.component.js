@@ -1,21 +1,18 @@
+import { useQuery } from "@apollo/react-hooks";
 import React from "react";
-
-import { ArticleGallery } from "../article/articleGallery.component";
-import { NavbarLanding } from "../navbar/navbar.component";
-import { FooterSection } from "../footer/footer.component";
 import {
-  Row,
-  Col,
-  Container,
+  Button,
   Card,
   CardBody,
   CardTitle,
-  CardSubtitle,
-  CardImg,
-  Button,
-  FormTextarea
+  Col,
+  Container,
+  Row
 } from "shards-react";
 import styled from "styled-components";
+import { ArticleGallery } from "../article/articleGallery.component";
+import { GET_ALL_CATEGORIES } from "../dashboard/categories/categories.queries";
+import { NavbarLanding } from "../navbar/navbar.component";
 
 const Categories = styled(Card)`
   background-color: rgba(0, 0, 0, 0.3);
@@ -26,6 +23,35 @@ const Categories = styled(Card)`
 `;
 
 export const CategoriesLayout = props => {
+  const { loading, error, data } = useQuery(GET_ALL_CATEGORIES);
+  const categories = !loading && !error ? data.getAllCategories : null;
+  const colors = [
+    "success",
+    "info",
+    "warning",
+    "dark",
+    "success",
+    "info",
+    "warning",
+    "dark"
+  ];
+
+  const categoryButtons =
+    categories && categories.length
+      ? categories.map(category => {
+          return (
+            <Button
+              outline
+              squared
+              key={category._id}
+              theme={colors[Math.floor(Math.random() * colors.length)]}
+            >
+              {category.name}
+            </Button>
+          );
+        })
+      : "There are no categories :(";
+
   return (
     <div className="landing-wrapper">
       <Container className="landing-container">
@@ -35,40 +61,12 @@ export const CategoriesLayout = props => {
           <Col sm="12" md="12" lg="12">
             <Categories>
               <CardBody>
-                <CardTitle className="card-custom-title">
-                  🌈Categories
-                </CardTitle>
+                <CardTitle className="card-custom-title">Categories</CardTitle>
                 <div
                   className="landing-categories"
                   style={{ margin: "auto", textAlign: "center", width: "60%" }}
                 >
-                  <Button outline squared>
-                    🌈 Primary
-                  </Button>
-                  <Button outline squared theme="success">
-                    🔥 Success
-                  </Button>
-                  <Button outline squared theme="info">
-                    ⚡ Info
-                  </Button>
-                  <Button outline squared theme="warning">
-                    🌝 Warning
-                  </Button>
-                  <Button outline squared theme="info">
-                    🍄 Info
-                  </Button>
-                  <Button outline squared theme="warning">
-                    🦖 Warning
-                  </Button>
-                  <Button outline squared theme="dark">
-                    🐦 Dark
-                  </Button>
-                  <Button outline squared theme="dark">
-                    🐨 Dark
-                  </Button>
-                  <Button outline squared theme="dark">
-                    🐽 Dark
-                  </Button>
+                  {categoryButtons}
                 </div>
               </CardBody>
             </Categories>

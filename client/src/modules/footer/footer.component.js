@@ -1,22 +1,51 @@
 import { useQuery } from "@apollo/react-hooks";
-
 import React from "react";
-import { Card, CardTitle, CardBody, Button, Row, Col } from "shards-react";
+import { Button, Card, CardBody, CardTitle, Col, Row } from "shards-react";
+import { GET_ALL_CATEGORIES } from "../dashboard/categories/categories.queries";
+import { GET_ABOUT_SHORT } from "../gql/about.queries";
 export const FooterSection = props => {
+  const { data: aboutData } = useQuery(GET_ABOUT_SHORT);
+  const about = aboutData ? aboutData.getAbout.about : null;
+  const { loading, error, data } = useQuery(GET_ALL_CATEGORIES);
+  const categories = !loading && !error ? data.getAllCategories : null;
+  const colors = [
+    "success",
+    "info",
+    "warning",
+    "dark",
+    "success",
+    "info",
+    "warning",
+    "dark"
+  ];
+
+  const categoryButtons =
+    categories && categories.length
+      ? categories.map(category => {
+          return (
+            <Button
+              outline
+              squared
+              key={category._id}
+              theme={colors[Math.floor(Math.random() * colors.length)]}
+            >
+              {category.name}
+            </Button>
+          );
+        })
+      : "There are no categories :(";
+
   return (
     <Row>
       <Col>
         <Card className="card-custom">
           <CardBody>
-            <CardTitle className="card-custom-title">❤️About</CardTitle>
+            <CardTitle className="card-custom-title">Bio</CardTitle>
             <p className="card-custom-text">
-              Card subtitle. Nunc quis nisl ac justo elementum sagittis in quis
-              justo. .Nunc quis nisl ac justo elementum sagittis in quis justo.
-              Card subtitle. Nunc quis nisl ac justo elementum sagittis in quis
-              justo. .Nunc quis nisl ac justo elementum sagittis in quis justo.
+              {about && about.slice(0, 200)}...
             </p>
             <Button outline squared theme="white">
-              Success
+              Read more
             </Button>
           </CardBody>
         </Card>
@@ -28,50 +57,9 @@ export const FooterSection = props => {
               style={{ textAlign: "right" }}
               className="card-custom-title"
             >
-              Categories🐧
+              Categories
             </CardTitle>
-            <div className="landing-categories">
-              <Button outline squared>
-                Primary
-              </Button>
-              <Button outline squared theme="success">
-                Success
-              </Button>
-              <Button outline squared theme="info">
-                Info
-              </Button>
-              <Button outline squared theme="warning">
-                Warning
-              </Button>
-              <Button outline squared theme="info">
-                Info
-              </Button>
-              <Button outline squared theme="warning">
-                Warning
-              </Button>
-              <Button outline squared theme="dark">
-                Dark
-              </Button>
-              <Button outline squared theme="dark">
-                Dark
-              </Button>
-              <Button outline squared theme="dark">
-                Dark
-              </Button>
-
-              <Button outline squared theme="dark">
-                Dark
-              </Button>
-              <Button outline squared theme="dark">
-                Dark
-              </Button>
-              <Button outline squared theme="info">
-                Info
-              </Button>
-              <Button outline squared theme="warning">
-                Warning
-              </Button>
-            </div>
+            <div className="landing-categories">{categoryButtons}</div>
           </CardBody>
         </Card>
       </Col>

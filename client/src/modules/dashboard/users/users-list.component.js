@@ -1,35 +1,13 @@
 import React from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import { Button, Table, Divider, Tag, Empty, Skeleton, Icon } from "antd";
+import { useQuery } from "@apollo/react-hooks";
+import { Table, Divider, Tag, Empty, Skeleton, Icon } from "antd";
 import { GET_ALL_USERS } from "./users.queries";
-import { REMOVE_USER } from "./users.mutations";
-import { openNotification } from "../common/notification.component";
 import { HelpButton, UsersHelp } from "../common/notification.helper";
+import { RemoveUser } from "./remove-user.component";
+import { SwitchRole } from "./change-role.component";
+
 export const UsersList = props => {
-  const { loading, error, data } = useQuery(GET_ALL_USERS);
-
-  const [removeUser] = useMutation(REMOVE_USER, {
-    refetchQueries: () => [
-      {
-        query: GET_ALL_USERS
-      }
-    ]
-  });
-
-  const handleRemoveClick = async user => {
-    try {
-      await removeUser({
-        variables: { userId: user._id }
-      });
-      openNotification(
-        "success",
-        "Don't like him?",
-        `${user.userName} was successfully removed`
-      );
-    } catch (error) {
-      openNotification("error", "Oh no!", error.message);
-    }
-  };
+  const { loading, data } = useQuery(GET_ALL_USERS);
 
   const columns = [
     {
@@ -65,15 +43,10 @@ export const UsersList = props => {
       align: "center",
       render: (text, record) => (
         <span>
-          <Button type="primary" ghost>
-            Activity
-          </Button>
           <Divider type="vertical" />
-          <Button>Edit</Button>
+          <SwitchRole record={record} />
           <Divider type="vertical" />
-          <Button type="danger" ghost onClick={() => handleRemoveClick(record)}>
-            Remove
-          </Button>
+          <RemoveUser record={record} />
         </span>
       )
     }

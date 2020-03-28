@@ -1,6 +1,12 @@
 import React from "react";
-import { Card, CardTitle, CardImg, CardBody, Button } from "shards-react";
-
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardImg,
+  CardTitle
+} from "shards-react";
 import styled from "styled-components";
 
 const Box = styled(Card)`
@@ -16,18 +22,22 @@ const Box = styled(Card)`
 `;
 
 export const ArticleBox = props => {
+  const url = "/articles/" + props.id;
   return (
     <Box theme="white">
       <CardImg top src={props.image} />
       <CardBody>
-        <CardTitle>Lorem Ipjhygyuhsum</CardTitle>
+        <CardTitle>{props.title}</CardTitle>
         <p>{props.desc}</p>
         <div style={{ margin: "auto", textAlign: "center" }}>
-          <Button outline squared href="/articles/single" theme="dark">
+          <Button outline squared href={url} theme="dark">
             Read more
           </Button>
         </div>
       </CardBody>
+      <CardFooter>
+        <span style={{ float: "right", color: "#000" }}>{props.category}</span>
+      </CardFooter>
     </Box>
   );
 };

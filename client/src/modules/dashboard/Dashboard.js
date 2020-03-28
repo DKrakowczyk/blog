@@ -1,22 +1,18 @@
-import React, { useState } from "react";
-import { Layout, Button, Icon, Menu, Divider, Collapse, Avatar } from "antd";
-import styled from "styled-components";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Sidebar } from "./sidebar/sidebar.component";
+import { Divider, Icon, Layout } from "antd";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import { About } from "./about/about.component";
 import { ArticleList } from "./articles/article-list.component";
 import { CategoryList } from "./categories/category-list.component";
-import { MediaComponent } from "./media/media.component";
-import { IdeasComponent } from "./ideas/ideas.component";
-import { UsersList } from "./users/users-list.component";
 import { Breadcrumbs } from "./common/breadcrumbs.component";
+import { IdeasComponent } from "./ideas/ideas.component";
 import { MainComponent } from "./main/main.component";
-const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
-const { Panel } = Collapse;
+import { Sidebar } from "./sidebar/sidebar.component";
+import { SocialComponent } from "./social/social.component";
+import { UsersList } from "./users/users-list.component";
+const { Header, Content, Footer } = Layout;
 
 function Dashboard() {
-  const [collapsed, setCollapsed] = useState(false);
-
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sidebar />
@@ -24,25 +20,13 @@ function Dashboard() {
         <Header style={{ background: "#fff", padding: 0 }}>
           <div style={{ float: "right" }}>
             <Divider type="vertical" />
-            <Button icon="facebook" size={32}>
-              <Divider type="vertical" />
-              Facebook
-            </Button>
+            <Icon type="facebook" size={32} />
             <Divider type="vertical" />
-            <Button icon="instagram" size={32}>
-              <Divider type="vertical" />
-              Instagram
-            </Button>
+            <Icon type="instagram" size={32} />
             <Divider type="vertical" />
-            <Button icon="twitter" size={32}>
-              <Divider type="vertical" />
-              Twitter
-            </Button>
+            <Icon type="twitter" size={32} />
             <Divider type="vertical" />
-            <Button icon="linkedin" size={32}>
-              <Divider type="vertical" />
-              LinkedIn
-            </Button>
+            <Icon type="linkedin" size={32} />
             <Divider type="vertical" />
           </div>
         </Header>
@@ -59,8 +43,11 @@ function Dashboard() {
               <Route path="/dashboard/categories">
                 <CategoryList />
               </Route>
-              <Route path="/dashboard/media">
-                <MediaComponent />
+              <Route path="/dashboard/about">
+                <About />
+              </Route>
+              <Route path="/dashboard/social">
+                <SocialComponent />
               </Route>
               <Route path="/dashboard/ideas">
                 <IdeasComponent />

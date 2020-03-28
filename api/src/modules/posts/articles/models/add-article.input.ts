@@ -23,6 +23,9 @@ export class AddArticleInput {
   @IsBoolean()
   isDraft: boolean;
 
+  @Field({ description: "Add article description", nullable: true })
+  heroImg: string;
+
   @Field(type => ObjectIdScalar, { description: "Add category" })
   categories?: ObjectId;
 }

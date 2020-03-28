@@ -27,7 +27,7 @@ export class AuthService {
       userName: userName,
       email: email,
       password: hashed,
-      role: role
+      role: role ? role : Role.StandardUser
     });
 
     return user;

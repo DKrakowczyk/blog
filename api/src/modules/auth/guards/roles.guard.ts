@@ -9,7 +9,6 @@ export class RoleGuard implements CanActivate {
   canActivate(context: ExecutionContext) {
     // User can only have one role
     const role = this.reflector.get<Role>("role", context.getHandler());
-    console.log(role);
     if (!role) {
       return true;
     }
