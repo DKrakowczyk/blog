@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { Avatar, Comment, Empty, List } from "antd";
 import React from "react";
 import { useParams } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 import {
   Button,
   Card,
@@ -12,7 +13,8 @@ import {
   Col,
   Container,
   FormTextarea,
-  Row
+  Row,
+  Badge
 } from "shards-react";
 import styled from "styled-components";
 import { FooterSection } from "../footer/footer.component";
@@ -22,7 +24,9 @@ import {
 } from "../gql/articles.queries";
 import { NavbarLanding } from "../navbar/navbar.component";
 import { LoaderComponent } from "../layout/loader.component";
+import { Comments } from "./comments.component";
 const Content = styled.div`
+  margin-top: 5px;
   font-size: 24px;
   color: #000;
 `;
@@ -32,13 +36,31 @@ const FixedCard = styled(Card)`
   -moz-box-shadow: 0px 0px 33px 3px rgba(0, 0, 0, 0.35);
   box-shadow: 0px 0px 33px 3px rgba(0, 0, 0, 0.35);
   transition: box-shadow 0.5s ease-in;
+  margin-top: 25px;
 `;
 
 const ShadowCard = styled(Card)`
   -webkit-box-shadow: 0px 0px 33px 3px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0px 0px 33px 3px rgba(0, 0, 0, 0.4);
   box-shadow: 0px 0px 33px 3px rgba(0, 0, 0, 0.4);
+  margin-top: 25px;
 `;
+const TitleBadge = styled(Badge)`
+  font-size: 24px;
+  padding: 10px;
+  text-transform: uppercase;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 0px;
+  left: 50%;
+  color: #fff;
+`;
+const options = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric"
+};
 
 export const SingleArticleLayout = props => {
   const { articleId } = useParams();
@@ -54,29 +76,37 @@ export const SingleArticleLayout = props => {
     dataRandom && dataRandom.getArticlesExcept
       ? dataRandom.getArticlesExcept
       : null;
-
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  };
   const date = article
     ? new Date(article.created_at).toLocaleDateString("en-US", options)
     : "";
+
   const Article = article ? (
     <ShadowCard>
       <CardBody>
-        <CardTitle>{article.title} </CardTitle>
-        <CardSubtitle>
-          Added by DKrakowczyk on {date} - {article.timeToRead}
-          min read
+        <TitleBadge theme="dark">{article.title} </TitleBadge>
+        <CardSubtitle style={{ marginTop: "3px", marginBottm: "5px" }}>
+          <Badge outline theme="danger">
+            Added by DKrakowczyk{" "}
+          </Badge>{" "}
+          <Badge outline theme="success">
+            {date}
+          </Badge>{" "}
+          <Badge outline>
+            {article.timeToRead}
+            min read
+          </Badge>
         </CardSubtitle>
         <Content dangerouslySetInnerHTML={{ __html: article.body }}></Content>
         <hr />
       </CardBody>
       <CardFooter>
-        <Button style={{ float: "right" }} outline squared theme="dark">
+        <Button
+          style={{ float: "right" }}
+          outline
+          squared
+          theme="dark"
+          href={`/categories/${article.categories._id}`}
+        >
           {article.categories.name}
         </Button>
       </CardFooter>
@@ -104,83 +134,53 @@ export const SingleArticleLayout = props => {
       <Empty />
     );
 
+  const scrollToTop = () => {
+    scroll.scrollToTop();
+  };
+
   return (
-    <div className="landing-wrapper">
-      <LoaderComponent show={loading} />
+    <>
+      <div className="hero-small"></div>
+      <div className="landing-wrapper">
+        <LoaderComponent show={loading} />
+        <Container className="landing-container">
+          <NavbarLanding />
+          <div className="landing-divider" />
+          <Row>
+            <Col sm="8" md="8" lg="8">
+              {Article}
+            </Col>
+            <Col sm="4" md="4" lg="4">
+              <FixedCard>
+                <CardBody>
+                  <CardTitle>Related Articles</CardTitle>
+                  <CardSubtitle> Find something interesting</CardSubtitle>
+                  {Random}
+                </CardBody>
+              </FixedCard>
+            </Col>
+          </Row>
 
-      <Container className="landing-container">
-        <NavbarLanding />
-        <div className="landing-divider" />
-        <Row>
-          <Col sm="8" md="8" lg="8">
-            {Article}
-          </Col>
-          <Col sm="4" md="4" lg="4">
-            <FixedCard>
-              <CardBody>
-                <CardTitle>Related Articles</CardTitle>
-                <CardSubtitle> Find something interesting</CardSubtitle>
-                {Random}
-              </CardBody>
-            </FixedCard>
-          </Col>
-        </Row>
-
-        <br></br>
-        <Row>
-          <Col sm="12" md="12" lg="12">
-            <ShadowCard>
-              <CardBody>
-                <CardTitle>Comments</CardTitle>
-
-                <div>
-                  <p className="mb-2"> Waiting for you to say something...</p>
-                  <FormTextarea />
-                  <Button
-                    outline
-                    squared
-                    theme="dark"
-                    style={{ marginTop: "20px", float: "right" }}
-                  >
-                    Post a comment
-                  </Button>
-                </div>
-                <br />
-                <br />
-                <br />
-                <Comment
-                  author="Han Solo"
-                  content={
-                    <p>
-                      We supply a series of design principles, practical
-                      patterns and high quality design resources (Sketch and
-                      Axure), to help people create their product prototypes
-                      beautifully and efficiently.
-                    </p>
-                  }
-                />
-                <Comment
-                  author="Han Solo"
-                  content={
-                    <p>
-                      We supply a series of design principles, practical
-                      patterns and high quality design resources (Sketch and
-                      Axure), to help people create their product prototypes
-                      beautifully and efficiently.
-                    </p>
-                  }
-                />
-
-                <Empty description="No comments 😥" />
-              </CardBody>
-            </ShadowCard>
-          </Col>
-        </Row>
-        <br />
-        <br />
-        <div className="landing-divider" />
-        <FooterSection />
-      </Container>
-    </div>
+          <Row>
+            <Col sm="12" md="12" lg="12">
+              <Comments article={article && article} />
+            </Col>
+          </Row>
+          <br />
+          <br />
+          <div className="landing-divider" />
+          <FooterSection />
+        </Container>
+      </div>
+      <div className="hero-bottom"></div>
+      <div className="scroll-top">
+        <img
+          className="loader-hero"
+          src="http://samherbert.net/svg-loaders/svg-loaders/rings.svg"
+          width="40"
+          onClick={() => scrollToTop()}
+        />
+      </div>
+    </>
   );
 };

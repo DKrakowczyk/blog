@@ -5,11 +5,13 @@ import { CommentService } from "./comment.service";
 import { CommonModule } from "../../common/common.module";
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
+import { UserModule } from "../../users/user.module";
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Comment.name, schema: CommentSchema }]),
-    ArticleModule
+    ArticleModule,
+    UserModule
   ],
   providers: [CommentResolver, CommentService]
 })

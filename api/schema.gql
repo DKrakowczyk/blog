@@ -230,6 +230,8 @@ scalar ObjectId
 
 type Query {
   getAllArticles: [Article!]!
+  searchAllArticles(title: String!): [Article!]!
+  getFromCategory(categoryId: ObjectId!): [Article!]!
   getArticlesExcept(articleId: ObjectId!): [Article!]!
   getSingleArticle(articleId: ObjectId!): Article!
   getAllCategories: [Category!]!

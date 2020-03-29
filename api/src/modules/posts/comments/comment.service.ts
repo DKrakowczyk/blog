@@ -5,7 +5,9 @@ import { Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
 import { ReturnModelType } from "@typegoose/typegoose";
-
+import { ObjectId } from "bson";
+import { User } from "../../users/models/user.schema";
+import { UserService } from "../../users/user.service";
 @Injectable()
 export class CommentService {
   //
@@ -13,8 +15,14 @@ export class CommentService {
     @InjectModel(Comment.name)
     private readonly commentModel: ReturnModelType<typeof Comment>,
     @Inject(ArticleService)
-    private readonly articleService: ArticleService
+    private readonly articleService: ArticleService,
+    @Inject(UserService)
+    private readonly userService: UserService
   ) {}
+
+  async resolveAuthor(author: ObjectId): Promise<User> {
+    return this.userService.findOne(author);
+  }
 
   async create(
     createCommentDto: AddCommentInput,

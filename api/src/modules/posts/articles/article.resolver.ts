@@ -45,6 +45,18 @@ export class ArticleResolver {
   }
 
   @Query(() => [Article])
+  async searchAllArticles(@Args("title") title?: string): Promise<Article[]> {
+    return this.articleService.search(title);
+  }
+
+  @Query(() => [Article])
+  async getFromCategory(
+    @Args("categoryId") categoryId: ObjectIdScalar
+  ): Promise<Article[]> {
+    return await this.articleService.getFromCategory(categoryId);
+  }
+
+  @Query(() => [Article])
   async getArticlesExcept(
     @Args("articleId") articleId: ObjectIdScalar
   ): Promise<Article[]> {

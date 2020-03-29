@@ -28,6 +28,7 @@ export const FooterSection = props => {
               squared
               key={category._id}
               theme={colors[Math.floor(Math.random() * colors.length)]}
+              href={`/categories/${category._id}`}
             >
               {category.name}
             </Button>
@@ -44,7 +45,7 @@ export const FooterSection = props => {
             <p className="card-custom-text">
               {about && about.slice(0, 200)}...
             </p>
-            <Button outline squared theme="white">
+            <Button outline squared theme="white" href="/about">
               Read more
             </Button>
           </CardBody>

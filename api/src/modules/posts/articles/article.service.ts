@@ -74,6 +74,20 @@ export class ArticleService {
   async findAll(): Promise<Article[]> {
     return this.articleModel.find().exec();
   }
+
+  async search(title?: string): Promise<Article[]> {
+    let query: any = {};
+    if (title) {
+      query.title = { $regex: new RegExp(title, "i") };
+    }
+
+    return this.articleModel.find(query).exec();
+  }
+
+  async getFromCategory(categoryId: ObjectIdScalar): Promise<Article[]> {
+    return this.articleModel.find({ categories: categoryId }).exec();
+  }
+
   async findAllExcept(articleId: ObjectIdScalar): Promise<Article[]> {
     const articles = await this.articleModel
       .find({ _id: { $ne: articleId } })

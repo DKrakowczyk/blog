@@ -1,9 +1,17 @@
 import { AddCommentInput } from "./models/add-comments.input";
-import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
+import {
+  Args,
+  Mutation,
+  Query,
+  Resolver,
+  ResolveProperty,
+  Parent
+} from "@nestjs/graphql";
 import { Comment } from "./models/comment.schema";
 import { CommentService } from "./comment.service";
 import { Inject } from "@nestjs/common";
 import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
+import { User } from "../../users/models/user.schema";
 
 @Resolver(() => Comment)
 export class CommentResolver {
@@ -11,6 +19,11 @@ export class CommentResolver {
   constructor(
     @Inject(CommentService) private readonly commentService: CommentService
   ) {}
+
+  @ResolveProperty(type => User)
+  async author(@Parent() comment: Comment): Promise<User> {
+    return this.commentService.resolveAuthor(comment.author);
+  }
 
   @Query(() => [Comment])
   async getAllComments(

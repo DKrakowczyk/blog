@@ -17,7 +17,7 @@ export class Comment {
   comment: string;
 
   @Field({ description: "Comment author" })
-  @Property()
+  @Property({ ref: User, required: false })
   author: User;
 }
 export const CommentSchema: Schema<typeof Comment> = buildSchema(Comment);

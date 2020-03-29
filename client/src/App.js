@@ -1,4 +1,5 @@
 import React from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css";
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -9,8 +10,8 @@ import { LandingLayout } from "./modules/layout/landing.component";
 import { SingleArticleLayout } from "./modules/layout/single.component";
 import { CategoriesLayout } from "./modules/layout/categories.component";
 import { AboutLayout } from "./modules/layout/about.component";
-import { LoaderComponent } from "./modules/layout/loader.component";
-
+import { ArticlesLayout } from "./modules/layout/articles.component";
+import { SingleCategory } from "./modules/layout/single-category.component";
 function App() {
   return (
     <ApolloProvider client={client}>
@@ -19,11 +20,17 @@ function App() {
           <Route exact path="/">
             <LandingLayout />
           </Route>
+          <Route exact path="/articles">
+            <ArticlesLayout />
+          </Route>
           <Route exact path="/articles/:articleId">
             <SingleArticleLayout />
           </Route>
           <Route exact path="/categories">
             <CategoriesLayout />
+          </Route>
+          <Route exact path="/categories/:categoryId">
+            <SingleCategory />
           </Route>
           <Route exact path="/about">
             <AboutLayout />
