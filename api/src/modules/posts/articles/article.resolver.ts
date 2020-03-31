@@ -21,7 +21,7 @@ import { Category } from "../../categories/models/category.schema";
 import { EditArticleInput } from "./models/edit-article.input";
 
 @Resolver(() => Article)
-// @UseGuards(AuthGuard, RoleGuard)
+@UseGuards(AuthGuard)
 export class ArticleResolver {
   //
   constructor(
@@ -38,7 +38,6 @@ export class ArticleResolver {
     return this.articleService.resolveCategory(article.categories);
   }
 
-  //@Roles(Role.Maintainer)
   @Query(() => [Article])
   async getAllArticles(): Promise<Article[]> {
     return this.articleService.findAll();
@@ -72,10 +71,10 @@ export class ArticleResolver {
 
   @Mutation(() => Article)
   async createArticle(
-    @Args("addArticle") addArticle: AddArticleInput
-    // @Context("user") currentUser
+    @Args("addArticle") addArticle: AddArticleInput,
+    @Context("user") currentUser
   ): Promise<Article> {
-    return this.articleService.create(addArticle);
+    return this.articleService.create(addArticle, currentUser);
   }
   @Mutation(() => Article)
   async editArticle(

@@ -16,8 +16,8 @@ export class Comment {
   @Property({ minlength: 0, maxlength: 1000 })
   comment: string;
 
-  @Field({ description: "Comment author" })
-  @Property({ ref: User, required: false })
-  author: User;
+  @Field({ description: "Comment author", nullable: true })
+  @Property({ required: false })
+  authorName: string;
 }
 export const CommentSchema: Schema<typeof Comment> = buildSchema(Comment);

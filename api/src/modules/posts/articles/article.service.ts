@@ -34,11 +34,14 @@ export class ArticleService {
     return this.categoryService.findOne(category);
   }
 
-  async create(createArticleDto: AddArticleInput): Promise<Article> {
+  async create(
+    createArticleDto: AddArticleInput,
+    currentUser: any
+  ): Promise<Article> {
     const article = new this.articleModel({
       ...createArticleDto,
       created_at: new Date().toISOString(),
-      //author: currentUser.id,
+      author: currentUser.id,
       timeToRead: Math.ceil(
         createArticleDto.body.split(" ").length / WORDS_PER_MINUTE
       )
@@ -98,7 +101,9 @@ export class ArticleService {
   }
 
   async findOne(articleId: ObjectIdScalar): Promise<Article> {
-    return await this.articleModel.findById(articleId).exec();
+    const article = await this.articleModel.findById(articleId).exec();
+    article.comments = article.comments.reverse();
+    return article;
   }
 
   async publish(articleId: ObjectIdScalar, isDraft: boolean): Promise<Article> {

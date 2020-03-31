@@ -16,20 +16,20 @@ export class AuthGuard implements CanActivate {
     // First check for auth header in request
     if (request) {
       if (!request.headers.authorization) {
-        return false;
+        return true;
       }
       const user = await this.validateToken(request.headers.authorization);
-      if (!user) return false;
+      if (!user) return true;
       request.user = user;
       return true;
       // if not found, switch to nest gql context
     } else {
       const ctx: any = GqlExecutionContext.create(context).getContext();
       if (!ctx.headers.authorization) {
-        return false;
+        return true;
       }
       const user = await this.validateToken(ctx.headers.authorization);
-      if (!user) return false;
+      if (!user) return true;
       ctx.user = user;
       return true;
     }

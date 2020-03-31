@@ -10,6 +10,9 @@ export const GET_ALL_ARTICLES = gql`
       body
       isDraft
       timeToRead
+      author {
+        userName
+      }
       categories {
         _id
         name
@@ -46,11 +49,12 @@ export const GET_SINGLE_ARTICLE = gql`
         _id
         name
       }
+      author {
+        userName
+      }
       comments {
         comment
-        author {
-          userName
-        }
+        authorName
       }
     }
   }

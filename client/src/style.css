@@ -159,6 +159,9 @@
   background-position: center;
 }
 
+.comment-wrapper {
+  margin-top: -20px;
+}
 .landing-wrapper p {
   color: black;
 }

@@ -25,7 +25,7 @@ export class Article {
   @Property()
   body: string;
 
-  @Field(type => User, { description: "Article author" })
+  @Field(type => User, { description: "Article author", nullable: true })
   @Property({ ref: User, required: false })
   author: Ref<User>;
 

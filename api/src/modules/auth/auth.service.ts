@@ -61,11 +61,16 @@ export class AuthService {
 
   createJwt(user: User, isRefresh: boolean = false): any {
     return sign(
-      { id: user._id.toHexString(), email: user.email, role: user.role },
+      {
+        id: user._id.toHexString(),
+        userName: user.userName,
+        email: user.email,
+        role: user.role
+      },
       process.env.JWT_SECRET,
       {
         //SEKRET DO ZMIANY NA .ENV
-        expiresIn: isRefresh ? parseInt("600", 10) : parseInt("600", 10)
+        expiresIn: isRefresh ? parseInt("72600", 10) : parseInt("72600", 10)
       }
     );
   }

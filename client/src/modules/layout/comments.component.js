@@ -3,7 +3,9 @@ import { useMutation } from "@apollo/react-hooks";
 import React, { useState } from "react";
 import { Button, Card, CardBody, CardTitle, FormTextarea } from "shards-react";
 import styled from "styled-components";
-
+import { ADD_COMMENT } from "../gql/articles.mutations";
+import { GET_SINGLE_ARTICLE } from "../gql/articles.queries";
+import { openNotification } from "../dashboard/common/notification.component";
 const ShadowCard = styled(Card)`
   -webkit-box-shadow: 0px 0px 33px 3px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0px 0px 33px 3px rgba(0, 0, 0, 0.4);
@@ -11,21 +13,49 @@ const ShadowCard = styled(Card)`
   margin-top: 25px;
 `;
 
-export const Comments = (article, props) => {
+export const Comments = ({ article }, props) => {
+  console.log(article);
+
+  const [commentBody, setCommentBody] = useState();
+  const [addComment] = useMutation(ADD_COMMENT, {
+    refetchQueries: () => [
+      {
+        query: GET_SINGLE_ARTICLE,
+        variables: { articleId: article._id }
+      }
+    ]
+  });
+
+  const postComment = async () => {
+    try {
+      await addComment({
+        variables: {
+          articleId: article._id,
+          addComment: { comment: commentBody }
+        }
+      });
+      openNotification(
+        "success",
+        "Want to say something else?",
+        `Comment was successfully added`
+      );
+
+      setCommentBody("");
+    } catch (error) {
+      openNotification("error", "Oh no, you can not do this!", error.message);
+    }
+  };
   const CommentsList =
     article && article.comments ? (
       article.comments.map(comment => {
         return (
-          <Comment
-            author="Han Solo"
-            content={
-              <p>
-                We supply a series of design principles, practical patterns and
-                high quality design resources (Sketch and Axure), to help people
-                create their product prototypes beautifully and efficiently.
-              </p>
-            }
-          />
+          <>
+            <Comment
+              author={comment.authorName ? comment.authorName : "anonymous"}
+              content={<p>{comment.comment}</p>}
+            />
+            <div className="comment-wrapper"></div>
+          </>
         );
       })
     ) : (
@@ -36,12 +66,20 @@ export const Comments = (article, props) => {
     localStorage.getItem("TOKEN") !== null ? (
       <div>
         <p className="mb-2"> Waiting for you to say something...</p>
-        <FormTextarea />
+        <FormTextarea
+          value={commentBody}
+          onChange={e => {
+            setCommentBody(e.target.value);
+          }}
+        />
         <Button
           outline
           squared
           theme="dark"
           style={{ marginTop: "20px", float: "right" }}
+          onClick={() => {
+            postComment();
+          }}
         >
           Post a comment
         </Button>

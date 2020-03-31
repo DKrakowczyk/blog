@@ -71,9 +71,6 @@ input AddCategoryInput {
 input AddCommentInput {
   """Comment body"""
   comment: String!
-
-  """Comment author"""
-  author: String!
 }
 
 input AddUserInput {
@@ -97,7 +94,7 @@ type Article {
   body: String!
 
   """Article author"""
-  author: User!
+  author: User
 
   """Is draft (true/false)"""
   isDraft: Boolean!
@@ -155,7 +152,7 @@ type Comment {
   comment: String!
 
   """Comment author"""
-  author: User!
+  authorName: String
 }
 
 """

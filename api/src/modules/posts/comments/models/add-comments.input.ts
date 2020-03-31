@@ -6,7 +6,4 @@ import { ObjectId } from "bson";
 export class AddCommentInput {
   @Field({ description: "Comment body" })
   comment: string;
-
-  @Field({ description: "Comment author" })
-  author: string;
 }

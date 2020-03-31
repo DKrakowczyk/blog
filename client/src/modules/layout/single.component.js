@@ -86,7 +86,10 @@ export const SingleArticleLayout = props => {
         <TitleBadge theme="dark">{article.title} </TitleBadge>
         <CardSubtitle style={{ marginTop: "3px", marginBottm: "5px" }}>
           <Badge outline theme="danger">
-            Added by DKrakowczyk{" "}
+            Added by{" "}
+            {article.author && article.author.userName
+              ? article.author.userName
+              : " Gal Anonim"}
           </Badge>{" "}
           <Badge outline theme="success">
             {date}

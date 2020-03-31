@@ -25,12 +25,17 @@ export class CommentService {
   }
 
   async create(
+    currentUser: any,
     createCommentDto: AddCommentInput,
     articleId: ObjectIdScalar
   ): Promise<Comment> {
+    const comment = {
+      comment: createCommentDto.comment,
+      authorName: currentUser.userName
+    };
     const article = await this.articleService.addComment(
       articleId,
-      new this.commentModel(createCommentDto)
+      new this.commentModel(comment)
     );
     return article.comments.pop();
   }

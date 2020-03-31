@@ -5,25 +5,23 @@ import {
   Query,
   Resolver,
   ResolveProperty,
-  Parent
+  Parent,
+  Context
 } from "@nestjs/graphql";
 import { Comment } from "./models/comment.schema";
 import { CommentService } from "./comment.service";
-import { Inject } from "@nestjs/common";
+import { Inject, UseGuards } from "@nestjs/common";
 import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
 import { User } from "../../users/models/user.schema";
+import { AuthGuard } from "../../auth/guards/auth.guard";
 
+@UseGuards(AuthGuard)
 @Resolver(() => Comment)
 export class CommentResolver {
   //
   constructor(
     @Inject(CommentService) private readonly commentService: CommentService
   ) {}
-
-  @ResolveProperty(type => User)
-  async author(@Parent() comment: Comment): Promise<User> {
-    return this.commentService.resolveAuthor(comment.author);
-  }
 
   @Query(() => [Comment])
   async getAllComments(
@@ -34,10 +32,11 @@ export class CommentResolver {
 
   @Mutation(() => Comment)
   async addComment(
+    @Context("user") currentUser,
     @Args("addComment") addComment: AddCommentInput,
     @Args("articleId") articleId: ObjectIdScalar
   ): Promise<Comment> {
-    return this.commentService.create(addComment, articleId);
+    return this.commentService.create(currentUser, addComment, articleId);
   }
 
   @Mutation(() => Comment)

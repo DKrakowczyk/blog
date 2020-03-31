@@ -50,3 +50,12 @@ export const REMOVE_ARTICLE = gql`
     }
   }
 `;
+
+export const ADD_COMMENT = gql`
+  mutation addComment($articleId: ObjectId!, $addComment: AddCommentInput!) {
+    addComment(articleId: $articleId, addComment: $addComment) {
+      comment
+      authorName
+    }
+  }
+`;
