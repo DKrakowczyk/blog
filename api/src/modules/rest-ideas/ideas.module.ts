@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { IdeasSchema } from "./ideas.schema";
 import { IdeasController } from "./ideas.controller";
+import { IdeasSchema } from "./ideas.schema";
 import { IdeasService } from "./ideas.service";
 
 @Module({

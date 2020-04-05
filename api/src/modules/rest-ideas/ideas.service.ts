@@ -1,8 +1,8 @@
-import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Ideas } from "./ideas.interface";
+import { Model } from "mongoose";
 import { CreateIdeaDto } from "./dto/create-idea.dto";
+import { Ideas } from "./ideas.interface";
 
 @Injectable()
 export class IdeasService {

@@ -1,7 +1,7 @@
-import { Field, InputType, Int } from "type-graphql";
-import { IsBoolean, IsNotEmpty, Length, MinLength } from "class-validator";
 import { ObjectId } from "bson";
+import { IsBoolean, IsNotEmpty, Length, MinLength } from "class-validator";
 import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
+import { Field, InputType } from "type-graphql";
 
 @InputType()
 export class AddArticleInput {

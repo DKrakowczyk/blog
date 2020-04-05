@@ -1,18 +1,15 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Req,
   Body,
+  Controller,
   Delete,
+  Get,
   Param,
+  Post,
   Put
 } from "@nestjs/common";
-import { Request } from "express";
-import { InjectModel } from "@nestjs/mongoose";
+import { CreateIdeaDto } from "./dto/create-idea.dto";
 import { Ideas } from "./ideas.interface";
 import { IdeasService } from "./ideas.service";
-import { CreateIdeaDto } from "./dto/create-idea.dto";
 @Controller("ideas")
 export class IdeasController {
   constructor(private readonly ideasService: IdeasService) {}

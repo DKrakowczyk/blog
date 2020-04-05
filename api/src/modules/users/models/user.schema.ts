@@ -1,9 +1,9 @@
 import { buildSchema, prop as Property } from "@typegoose/typegoose";
-import { Field, ObjectType } from "type-graphql";
 import { ObjectId } from "bson";
+import { Schema } from "mongoose";
+import { Field, ObjectType } from "type-graphql";
 import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
 import { Role } from "./role.enum";
-import { Schema } from "mongoose";
 
 @ObjectType()
 export class User {

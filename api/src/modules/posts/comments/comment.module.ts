@@ -1,11 +1,10 @@
-import { ArticleModule } from "../articles/article.module";
-import { Comment, CommentSchema } from "./models/comment.schema";
-import { CommentResolver } from "./comment.resolver";
-import { CommentService } from "./comment.service";
-import { CommonModule } from "../../common/common.module";
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { UserModule } from "../../users/user.module";
+import { ArticleModule } from "../articles/article.module";
+import { CommentResolver } from "./comment.resolver";
+import { CommentService } from "./comment.service";
+import { Comment, CommentSchema } from "./models/comment.schema";
 
 @Module({
   imports: [

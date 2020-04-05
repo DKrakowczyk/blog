@@ -1,6 +1,6 @@
-import { Field, ObjectType, InputType } from "type-graphql";
-import { ObjectId } from "bson";
+import { Field, InputType } from "type-graphql";
 import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
+
 @InputType()
 export class EditCategoryInput {
   @Field({ description: "Category id" })

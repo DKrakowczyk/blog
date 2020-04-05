@@ -1,11 +1,11 @@
-import { AddUserInput } from "../users/models/add-user.input";
 import { Args, Context, Mutation, Resolver } from "@nestjs/graphql";
-import { Auth } from "./models/auth.schema";
-import { AuthService } from "./auth.service";
 import { GraphQLError } from "graphql";
-import { ICurrentUser } from "./interfaces/current-user.interface";
-import { SignInUserInput } from "./models/sign-in-user.input";
+import { AddUserInput } from "../users/models/add-user.input";
 import { User } from "../users/models/user.schema";
+import { AuthService } from "./auth.service";
+import { ICurrentUser } from "./interfaces/current-user.interface";
+import { Auth } from "./models/auth.schema";
+import { SignInUserInput } from "./models/sign-in-user.input";
 
 @Resolver(() => Auth)
 export class AuthResolver {

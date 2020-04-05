@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { ReturnModelType } from "@typegoose/typegoose";
-import { About } from "./models/about.schema";
 import { AboutInput } from "./models/about.input";
+import { About } from "./models/about.schema";
 
 @Injectable()
 export class AboutService {

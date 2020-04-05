@@ -1,15 +1,15 @@
-import { Injectable, Inject } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { ReturnModelType } from "@typegoose/typegoose";
+import { ObjectId } from "bson";
+import { CategoryService } from "src/modules/categories/category.service";
+import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
+import { UserService } from "src/modules/users/user.service";
+import { Category } from "../../categories/models/category.schema";
+import { User } from "../../users/models/user.schema";
+import { Comment } from "../comments/models/comment.schema";
 import { AddArticleInput } from "./models/add-article.input";
 import { Article } from "./models/article.schema";
-import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
-import { Comment } from "../comments/models/comment.schema";
-import { UserService } from "src/modules/users/user.service";
-import { CategoryService } from "src/modules/categories/category.service";
-import { User } from "../../users/models/user.schema";
-import { ObjectId } from "bson";
-import { Category } from "../../categories/models/category.schema";
 import { EditArticleInput } from "./models/edit-article.input";
 import { Statistics } from "./models/statistics.schema";
 // To calculate time to read variable

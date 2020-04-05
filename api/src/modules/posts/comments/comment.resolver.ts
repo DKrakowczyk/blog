@@ -1,19 +1,10 @@
-import { AddCommentInput } from "./models/add-comments.input";
-import {
-  Args,
-  Mutation,
-  Query,
-  Resolver,
-  ResolveProperty,
-  Parent,
-  Context
-} from "@nestjs/graphql";
-import { Comment } from "./models/comment.schema";
-import { CommentService } from "./comment.service";
 import { Inject, UseGuards } from "@nestjs/common";
-import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
-import { User } from "../../users/models/user.schema";
+import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { AuthGuard } from "../../auth/guards/auth.guard";
+import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
+import { CommentService } from "./comment.service";
+import { AddCommentInput } from "./models/add-comments.input";
+import { Comment } from "./models/comment.schema";
 
 @UseGuards(AuthGuard)
 @Resolver(() => Comment)

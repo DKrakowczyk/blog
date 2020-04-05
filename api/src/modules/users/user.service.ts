@@ -4,10 +4,9 @@ import { ReturnModelType } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
 import { ObjectIdScalar } from "../common/scalars/object-id.scalar";
 import { AddUserInput } from "./models/add-user.input";
-import { User } from "./models/user.schema";
 import { EditUserInput } from "./models/edit-user.input";
 import { Role } from "./models/role.enum";
-import { Roles } from "../auth/decorators/roles.decorator";
+import { User } from "./models/user.schema";
 
 @Injectable()
 export class UserService {
@@ -45,7 +44,6 @@ export class UserService {
     }
 
     Object.assign(user, dto);
-
     return user.save();
   }
 

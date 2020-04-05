@@ -1,10 +1,9 @@
-import { AddCategoryInput } from "./models/add-category.input";
-import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
-import { Category } from "./models/category.schema";
-import { CategoryService } from "./category.service";
 import { Inject } from "@nestjs/common";
+import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { ObjectIdScalar } from "../common/scalars/object-id.scalar";
-import { Article } from "../posts/articles/models/article.schema";
+import { CategoryService } from "./category.service";
+import { AddCategoryInput } from "./models/add-category.input";
+import { Category } from "./models/category.schema";
 import { EditCategoryInput } from "./models/edit-category.input";
 
 @Resolver(() => Category)
@@ -43,11 +42,4 @@ export class CategoryResolver {
   ): Promise<Category> {
     return this.categoryService.remove(categoryId);
   }
-
-  // @Query(() => [Article])
-  // async getFromCategory(
-  //   @Args("categoryId") categoryId: ObjectIdScalar
-  // ): Promise<Article[]> {
-  //   return this.categoryService.getFromCategory(categoryId);
-  // }
 }

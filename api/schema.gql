@@ -201,6 +201,15 @@ input EditUserInput {
 }
 
 type Mutation {
+  addAbout(about: AboutInput!): About!
+  editAbout(about: AboutInput!): About!
+  addUser(user: AddUserInput!): User!
+  editUser(user: EditUserInput!): User!
+  deleteUser(userId: ObjectId!): User!
+  switchRoles(userId: ObjectId!): User!
+  signUp(signUp: AddUserInput!): User!
+  signIn(signIn: SignInUserInput!): Auth!
+  refreshToken(refreshToken: String!): Auth!
   createArticle(addArticle: AddArticleInput!): Article!
   editArticle(editArticle: EditArticleInput!): Article!
   publishArticle(articleId: ObjectId!): Article!
@@ -209,23 +218,16 @@ type Mutation {
   addCategory(input: AddCategoryInput!): Category!
   editCategory(input: EditCategoryInput!): Category!
   removeCategory(categoryId: ObjectId!): Category!
-  addUser(user: AddUserInput!): User!
-  editUser(user: EditUserInput!): User!
-  deleteUser(userId: ObjectId!): User!
-  switchRoles(userId: ObjectId!): User!
-  signUp(signUp: AddUserInput!): User!
-  signIn(signIn: SignInUserInput!): Auth!
-  refreshToken(refreshToken: String!): Auth!
   addComment(articleId: ObjectId!, addComment: AddCommentInput!): Comment!
   removeComment(commentId: ObjectId!, articleId: ObjectId!): Comment!
-  addAbout(about: AboutInput!): About!
-  editAbout(about: AboutInput!): About!
 }
 
 """Mongo object id scalar type"""
 scalar ObjectId
 
 type Query {
+  getAbout: About!
+  findAllUsers: [User!]!
   getAllArticles: [Article!]!
   searchAllArticles(title: String!): [Article!]!
   getFromCategory(categoryId: ObjectId!): [Article!]!
@@ -234,9 +236,7 @@ type Query {
   getStatistics: Statistics!
   getAllCategories: [Category!]!
   getCategory(categoryId: ObjectId!): Category!
-  findAllUsers: [User!]!
   getAllComments(articleId: ObjectId!): [Comment!]!
-  getAbout: About!
 }
 
 """Available user roles"""

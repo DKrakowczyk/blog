@@ -1,8 +1,8 @@
-import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { Inject } from "@nestjs/common";
-import { About } from "./models/about.schema";
+import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { AboutService } from "./about.service";
 import { AboutInput } from "./models/about.input";
+import { About } from "./models/about.schema";
 
 @Resolver(() => About)
 export class AboutResolver {

@@ -3,9 +3,9 @@ import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { ObjectId } from "bson";
 import { ObjectIdScalar } from "../common/scalars/object-id.scalar";
 import { AddUserInput } from "./models/add-user.input";
+import { EditUserInput } from "./models/edit-user.input";
 import { User } from "./models/user.schema";
 import { UserService } from "./user.service";
-import { EditUserInput } from "./models/edit-user.input";
 
 @Resolver(() => User)
 export class UserResolver {

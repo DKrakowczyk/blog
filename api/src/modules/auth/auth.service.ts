@@ -1,11 +1,11 @@
-import { Auth } from "./models/auth.schema";
+import { Inject, Injectable } from "@nestjs/common";
 import { compare, hash } from "bcryptjs";
 import { GraphQLError } from "graphql";
-import { Inject, Injectable } from "@nestjs/common";
-import { Role } from "../users/models/role.enum";
 import { sign, verify } from "jsonwebtoken";
+import { Role } from "../users/models/role.enum";
 import { User } from "../users/models/user.schema";
 import { UserService } from "../users/user.service";
+import { Auth } from "./models/auth.schema";
 
 @Injectable()
 export class AuthService {

@@ -1,6 +1,6 @@
 import { CustomScalar, Scalar } from "@nestjs/graphql";
-import { Kind, ValueNode } from "graphql";
 import { ObjectId } from "bson";
+import { Kind, ValueNode } from "graphql";
 
 @Scalar("ObjectId")
 export class ObjectIdScalar implements CustomScalar<string, ObjectId> {

@@ -1,11 +1,11 @@
 import { buildSchema, prop as Property, Ref } from "@typegoose/typegoose";
-import { Category } from "src/modules/categories/models/category.schema";
-import { Comment } from "src/modules/posts/comments/models/comment.schema";
-import { Field, ObjectType } from "type-graphql";
 import { ObjectId } from "bson";
-import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
 import { Schema } from "mongoose";
+import { Category } from "src/modules/categories/models/category.schema";
+import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
+import { Comment } from "src/modules/posts/comments/models/comment.schema";
 import { User } from "src/modules/users/models/user.schema";
+import { Field, ObjectType } from "type-graphql";
 
 @ObjectType({ description: "Article model" })
 export class Article {

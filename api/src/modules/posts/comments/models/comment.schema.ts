@@ -1,10 +1,8 @@
-import { Field, ObjectType } from "type-graphql";
-import { prop as Property, buildSchema } from "@typegoose/typegoose";
-
+import { buildSchema, prop as Property } from "@typegoose/typegoose";
 import { ObjectId } from "bson";
-import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
 import { Schema } from "mongoose";
-import { User } from "src/modules/users/models/user.schema";
+import { ObjectIdScalar } from "src/modules/common/scalars/object-id.scalar";
+import { Field, ObjectType } from "type-graphql";
 
 @ObjectType({ description: "Comment model" })
 export class Comment {

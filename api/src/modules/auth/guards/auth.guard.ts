@@ -1,8 +1,8 @@
-import * as jwt from "jsonwebtoken";
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
-import { GqlExecutionContext } from "@nestjs/graphql";
-import { ICurrentUser } from "../interfaces/current-user.interface";
 import { Reflector } from "@nestjs/core";
+import { GqlExecutionContext } from "@nestjs/graphql";
+import * as jwt from "jsonwebtoken";
+import { ICurrentUser } from "../interfaces/current-user.interface";
 
 @Injectable()
 export class AuthGuard implements CanActivate {

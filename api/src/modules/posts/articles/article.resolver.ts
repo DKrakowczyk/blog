@@ -1,4 +1,4 @@
-import { AddArticleInput } from "./models/add-article.input";
+import { Inject, UseGuards } from "@nestjs/common";
 import {
   Args,
   Context,
@@ -8,16 +8,13 @@ import {
   ResolveProperty,
   Resolver
 } from "@nestjs/graphql";
-import { Article } from "./models/article.schema";
-import { ArticleService } from "./article.service";
-import { AuthGuard } from "../../auth/guards/auth.guard";
-import { Inject, UseGuards } from "@nestjs/common";
-import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
-import { Role } from "../../users/models/role.enum";
-import { RoleGuard } from "../../auth/guards/roles.guard";
-import { Roles } from "../../auth/decorators/roles.decorator";
 import { User } from "src/modules/users/models/user.schema";
+import { AuthGuard } from "../../auth/guards/auth.guard";
 import { Category } from "../../categories/models/category.schema";
+import { ObjectIdScalar } from "../../common/scalars/object-id.scalar";
+import { ArticleService } from "./article.service";
+import { AddArticleInput } from "./models/add-article.input";
+import { Article } from "./models/article.schema";
 import { EditArticleInput } from "./models/edit-article.input";
 import { Statistics } from "./models/statistics.schema";
 
