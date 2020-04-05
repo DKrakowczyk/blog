@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/react-hooks";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
-import React from "react";
 import {
   Badge,
   Card,
@@ -12,10 +12,10 @@ import {
   Row
 } from "shards-react";
 import styled from "styled-components";
+import { GET_FROM_CATEGORY } from "../gql/articles.queries";
+import { GET_SINGLE_CATEGORY } from "../gql/categories.queries";
 import { ArticleGallery } from "./article/articleGallery.component";
 import { NavbarLanding } from "./navbar/navbar.component";
-import { GET_SINGLE_CATEGORY } from "../gql/categories.queries";
-import { GET_FROM_CATEGORY } from "../gql/articles.queries";
 const Categories = styled(Card)`
   text-align: center;
   margin: auto;
@@ -82,6 +82,7 @@ export const SingleCategory = props => {
       <div className="hero-bottom"></div>
       <div className="scroll-top">
         <img
+          alt="scroll to top"
           className="loader-hero"
           src="http://samherbert.net/svg-loaders/svg-loaders/rings.svg"
           width="40"

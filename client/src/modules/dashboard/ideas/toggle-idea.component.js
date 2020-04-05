@@ -1,6 +1,7 @@
 import { Tag } from "antd";
 import React from "react";
 import { openNotification } from "../common/notification.component";
+
 export const ToggleIdea = props => {
   const handleToggleClick = async () => {
     try {

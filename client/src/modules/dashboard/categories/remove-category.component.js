@@ -1,9 +1,9 @@
 import { useMutation } from "@apollo/react-hooks";
 import { Icon } from "antd";
 import React from "react";
-import { openNotification } from "../common/notification.component";
 import { REMOVE_CATEGORY } from "../../gql/categories.mutations";
 import { GET_ALL_CATEGORIES } from "../../gql/categories.queries";
+import { openNotification } from "../common/notification.component";
 
 export const RemoveCategory = props => {
   const [removeCategory] = useMutation(REMOVE_CATEGORY, {

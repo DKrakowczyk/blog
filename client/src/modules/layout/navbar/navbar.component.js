@@ -1,6 +1,5 @@
 import React from "react";
-import { Navbar, Nav, NavItem, NavLink } from "shards-react";
-import { Row, Col } from "shards-react";
+import { Col, Nav, Navbar, NavItem, NavLink, Row } from "shards-react";
 import { AuthModal } from "./auth.component";
 
 export const NavbarLanding = props => {

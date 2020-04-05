@@ -2,6 +2,7 @@ import { Button, Form, Input, Modal } from "antd";
 import React, { useState } from "react";
 import { openNotification } from "../common/notification.component";
 const { TextArea } = Input;
+
 export const AddIdea = props => {
   const [modalVisible, setModalVisible] = useState(false);
   const [idea, setIdea] = useState({

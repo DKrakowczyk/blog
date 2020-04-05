@@ -1,9 +1,10 @@
 import { useQuery } from "@apollo/react-hooks";
-import { Avatar, Comment, Empty, List } from "antd";
+import { Avatar, Empty, List } from "antd";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import {
+  Badge,
   Button,
   Card,
   CardBody,
@@ -12,19 +13,18 @@ import {
   CardTitle,
   Col,
   Container,
-  FormTextarea,
-  Row,
-  Badge
+  Row
 } from "shards-react";
 import styled from "styled-components";
-import { FooterSection } from "./footer.component";
 import {
   GET_RANDOM_ARTICLES,
   GET_SINGLE_ARTICLE
 } from "../gql/articles.queries";
-import { NavbarLanding } from "./navbar/navbar.component";
 import { LoaderComponent } from "../layout/loader.component";
 import { Comments } from "./comments.component";
+import { FooterSection } from "./footer.component";
+import { NavbarLanding } from "./navbar/navbar.component";
+
 const Content = styled.div`
   margin-top: 5px;
   font-size: 24px;
@@ -178,6 +178,7 @@ export const SingleArticleLayout = props => {
       <div className="hero-bottom"></div>
       <div className="scroll-top">
         <img
+          alt="scroll to top"
           className="loader-hero"
           src="http://samherbert.net/svg-loaders/svg-loaders/rings.svg"
           width="40"

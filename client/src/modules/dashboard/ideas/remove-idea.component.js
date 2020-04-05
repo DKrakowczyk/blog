@@ -1,6 +1,7 @@
 import { Tag } from "antd";
 import React from "react";
 import { openNotification } from "../common/notification.component";
+
 export const RemoveIdea = props => {
   const handleRemoveClick = async () => {
     try {

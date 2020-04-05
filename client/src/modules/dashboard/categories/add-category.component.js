@@ -1,10 +1,11 @@
 import { useMutation } from "@apollo/react-hooks";
 import { Button, Form, Input, Modal } from "antd";
 import React, { useState } from "react";
-import { openNotification } from "../common/notification.component";
 import { ADD_CATEGORY } from "../../gql/categories.mutations";
 import { GET_ALL_CATEGORIES } from "../../gql/categories.queries";
+import { openNotification } from "../common/notification.component";
 const { TextArea } = Input;
+
 export const AddCategory = props => {
   const [modalVisible, setModalVisible] = useState(false);
   const [category, setCategory] = useState({

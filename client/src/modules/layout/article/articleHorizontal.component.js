@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Card,
-  CardBody,
-  Badge,
-  CardFooter,
-  CardTitle
-} from "shards-react";
+import { Badge, Card, CardBody, CardFooter, CardTitle } from "shards-react";
 import styled from "styled-components";
 
 const DarkHorizontal = styled(Card)`

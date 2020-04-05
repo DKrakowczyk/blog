@@ -1,6 +1,6 @@
+import { Empty } from "antd";
 import React from "react";
 import { ArticleHorizontal } from "./articleHorizontal.component";
-import { Empty } from "antd";
 
 export const ArticleList = ({ articles, ...props }) => {
   const Articles = articles ? (

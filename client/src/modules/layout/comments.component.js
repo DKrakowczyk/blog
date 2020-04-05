@@ -1,12 +1,12 @@
-import { Comment, Empty, Icon } from "antd";
 import { useMutation } from "@apollo/react-hooks";
+import { Comment, Empty, Icon } from "antd";
 import React, { useState } from "react";
 import { Button, Card, CardBody, CardTitle, FormTextarea } from "shards-react";
 import styled from "styled-components";
+import { ROLE } from "../../constants/constants";
+import { openNotification } from "../dashboard/common/notification.component";
 import { ADD_COMMENT, REMOVE_COMMENT } from "../gql/articles.mutations";
 import { GET_SINGLE_ARTICLE } from "../gql/articles.queries";
-import { openNotification } from "../dashboard/common/notification.component";
-import { ROLE } from "../../constants/constants";
 const ShadowCard = styled(Card)`
   -webkit-box-shadow: 0px 0px 33px 3px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0px 0px 33px 3px rgba(0, 0, 0, 0.4);

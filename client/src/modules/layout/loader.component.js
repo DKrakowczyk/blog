@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 export const LoaderComponent = props => {
   const loader = props.show ? (

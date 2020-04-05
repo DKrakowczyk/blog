@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/react-hooks";
 import React from "react";
 import { Button, Card, CardBody, CardTitle, Col, Row } from "shards-react";
-import { GET_ALL_CATEGORIES } from "../gql/categories.queries";
 import { GET_ABOUT_SHORT } from "../gql/about.queries";
+import { GET_ALL_CATEGORIES } from "../gql/categories.queries";
 export const FooterSection = props => {
   const { data: aboutData } = useQuery(GET_ABOUT_SHORT);
   const about = aboutData ? aboutData.getAbout.about : null;

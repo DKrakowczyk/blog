@@ -1,8 +1,9 @@
-import { Calendar, Col, Divider, Icon, Row, Statistic } from "antd";
-import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { IdeasComponent } from "../ideas/ideas.component";
+import { Col, Divider, Icon, Row, Statistic } from "antd";
+import React from "react";
 import { GET_STATISTICS } from "../../gql/statistics.query";
+import { IdeasComponent } from "../ideas/ideas.component";
+
 export const MainComponent = props => {
   const { loading, data } = useQuery(GET_STATISTICS);
   const statistics = !loading && data ? data.getStatistics : null;

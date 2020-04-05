@@ -1,22 +1,21 @@
 import { useQuery } from "@apollo/react-hooks";
 import React from "react";
+import { animateScroll as scroll } from "react-scroll";
 import {
+  Badge,
   Button,
   Card,
   CardBody,
   CardTitle,
   Col,
   Container,
-  Row,
-  Badge
+  Row
 } from "shards-react";
 import styled from "styled-components";
-import { animateScroll as scroll } from "react-scroll";
-import { ArticleGallery } from "./article/articleGallery.component";
-import { GET_ALL_CATEGORIES } from "../gql/categories.queries";
-import { NavbarLanding } from "./navbar/navbar.component";
 import { GET_ALL_ARTICLES } from "../gql/articles.queries";
+import { GET_ALL_CATEGORIES } from "../gql/categories.queries";
 import { ArticleList } from "./article/articleList.component";
+import { NavbarLanding } from "./navbar/navbar.component";
 const Categories = styled(Card)`
   text-align: center;
   margin: auto;
@@ -46,7 +45,10 @@ export const CategoriesLayout = props => {
     data: articlesData
   } = useQuery(GET_ALL_ARTICLES);
 
-  const articles = articlesData ? articlesData.getAllArticles : null;
+  const articles =
+    !articlesLoading && !articlesError && articlesData
+      ? articlesData.getAllArticles
+      : null;
 
   const List =
     articles && articles.length ? <ArticleList articles={articles} /> : <></>;
@@ -110,6 +112,7 @@ export const CategoriesLayout = props => {
       <div className="scroll-top">
         <img
           className="loader-hero"
+          alt="scroll to top"
           src="http://samherbert.net/svg-loaders/svg-loaders/rings.svg"
           width="40"
           onClick={() => scrollToTop()}

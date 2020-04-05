@@ -1,14 +1,14 @@
 import { useLazyQuery } from "@apollo/react-hooks";
-import React, { useState, useEffect } from "react";
+import { Empty } from "antd";
+import React, { useEffect, useState } from "react";
 import { animateScroll as scroll } from "react-scroll";
-import { Col, Container, Row, FormInput } from "shards-react";
-import { FooterSection } from "./footer.component";
+import { Col, Container, FormInput, Row } from "shards-react";
+import styled from "styled-components";
 import { SEARCH_ARTICLES } from "../gql/articles.queries";
-import { NavbarLanding } from "./navbar/navbar.component";
 import { LoaderComponent } from "../layout/loader.component";
 import { ArticleList } from "./article/articleList.component";
-import styled from "styled-components";
-import { Empty } from "antd";
+import { FooterSection } from "./footer.component";
+import { NavbarLanding } from "./navbar/navbar.component";
 
 const SearchBar = styled(FormInput)`
   background-color: rgba(0, 0, 0, 0.2);
@@ -24,12 +24,9 @@ const SearchBar = styled(FormInput)`
 export const ArticlesLayout = props => {
   const [title, setTitle] = useState();
 
-  const [loadArticles, { called, loading, data }] = useLazyQuery(
-    SEARCH_ARTICLES,
-    {
-      variables: { title }
-    }
-  );
+  const [loadArticles, { loading, data }] = useLazyQuery(SEARCH_ARTICLES, {
+    variables: { title }
+  });
   let articles = data ? data.searchAllArticles : null;
 
   useEffect(() => {
@@ -77,6 +74,7 @@ export const ArticlesLayout = props => {
       <div className="scroll-top">
         <img
           className="loader-hero"
+          alt="scroll to top"
           src="http://samherbert.net/svg-loaders/svg-loaders/rings.svg"
           width="40"
           onClick={() => scrollToTop()}

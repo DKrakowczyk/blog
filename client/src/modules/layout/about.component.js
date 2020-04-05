@@ -1,17 +1,18 @@
-import React from "react";
 import { useQuery } from "@apollo/react-hooks";
+import React from "react";
 import {
+  Badge,
   Card,
   CardBody,
   CardTitle,
   Col,
   Container,
-  Row,
-  Badge
+  Row
 } from "shards-react";
 import styled from "styled-components";
-import { NavbarLanding } from "./navbar/navbar.component";
 import { GET_ABOUT_SHORT } from "../gql/about.queries";
+import { NavbarLanding } from "./navbar/navbar.component";
+
 const Bio = styled(Card)`
   text-align: center;
   margin: auto;

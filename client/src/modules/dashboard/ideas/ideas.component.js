@@ -1,17 +1,9 @@
-import { Collapse, Divider, Icon, Tag, Table } from "antd";
+import { Divider, Icon, Table, Tag } from "antd";
 import React from "react";
-import { HelpButton, IdeasHelp } from "../common/notification.helper";
 import { AddIdea } from "./add-idea.component";
 import { RemoveIdea } from "./remove-idea.component";
 import { ToggleIdea } from "./toggle-idea.component";
-const { Panel } = Collapse;
-const text = (
-  <p style={{ paddingLeft: 24 }}>
-    A dog is a type of domesticated animal. Known for its loyalty and
-    faithfulness, it can be found:a welcome guest in many households across the
-    world.
-  </p>
-);
+
 export class IdeasComponent extends React.Component {
   mounted = false;
   state = {
@@ -41,6 +33,8 @@ export class IdeasComponent extends React.Component {
         case 1:
           return { text: "IN PROGRESS", color: "geekblue" };
         case 2:
+          return { text: "DONE", color: "green" };
+        default:
           return { text: "DONE", color: "green" };
       }
     };

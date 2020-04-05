@@ -1,21 +1,21 @@
+import { useMutation } from "@apollo/react-hooks";
 import jwt_decode from "jwt-decode";
 import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
 import {
-  NavItem,
-  NavLink,
-  FormInput,
+  Button,
   Form,
   FormGroup,
+  FormInput,
   Modal,
   ModalBody,
   ModalHeader,
-  Button
+  NavItem,
+  NavLink
 } from "shards-react";
-import { SIGN_UP, SIGN_IN } from "../../gql/auth.mutations";
-import { openNotification } from "../../dashboard/common/notification.component";
 import styled from "styled-components";
 import { ROLE } from "../../../constants/constants";
+import { openNotification } from "../../dashboard/common/notification.component";
+import { SIGN_IN, SIGN_UP } from "../../gql/auth.mutations";
 
 const Label = styled.label`
   color: #000;

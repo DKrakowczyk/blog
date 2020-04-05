@@ -1,4 +1,4 @@
-import { notification, Icon } from "antd";
+import { Icon, notification } from "antd";
 // eslint-disable-next-line
 import React from "react";
 import styled from "styled-components";
