@@ -1,3 +1,4 @@
+import jwt_decode from "jwt-decode";
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import {
@@ -11,9 +12,10 @@ import {
   ModalHeader,
   Button
 } from "shards-react";
-import { SIGN_UP, SIGN_IN } from "../gql/auth.mutations";
-import { openNotification } from "../dashboard/common/notification.component";
+import { SIGN_UP, SIGN_IN } from "../../gql/auth.mutations";
+import { openNotification } from "../../dashboard/common/notification.component";
 import styled from "styled-components";
+import { ROLE } from "../../../constants/constants";
 
 const Label = styled.label`
   color: #000;
@@ -45,7 +47,14 @@ export const AuthModal = props => {
   const [signIn] = useMutation(SIGN_IN, {
     onCompleted({ signIn }) {
       localStorage.setItem("TOKEN", signIn.token);
-      window.location.reload();
+      const decoded = jwt_decode(signIn.token);
+      localStorage.setItem("ROLE", decoded.role);
+      localStorage.setItem("userName", decoded.userName);
+      if (decoded.role === ROLE.Admin) {
+        window.location.href = "/dashboard/main";
+      } else {
+        window.location.reload();
+      }
     }
   });
 

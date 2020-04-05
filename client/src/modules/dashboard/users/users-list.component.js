@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { Table, Divider, Tag, Empty, Skeleton, Icon } from "antd";
-import { GET_ALL_USERS } from "./users.queries";
+import { GET_ALL_USERS } from "../../gql/users.queries";
 import { HelpButton, UsersHelp } from "../common/notification.helper";
 import { RemoveUser } from "./remove-user.component";
 import { SwitchRole } from "./change-role.component";

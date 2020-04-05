@@ -53,6 +53,7 @@ export const GET_SINGLE_ARTICLE = gql`
         userName
       }
       comments {
+        _id
         comment
         authorName
       }

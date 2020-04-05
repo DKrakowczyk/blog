@@ -2,8 +2,8 @@ import { useMutation } from "@apollo/react-hooks";
 import { Tag } from "antd";
 import React from "react";
 import { openNotification } from "../common/notification.component";
-import { REMOVE_USER } from "./users.mutations";
-import { GET_ALL_USERS } from "./users.queries";
+import { REMOVE_USER } from "../../gql/users.mutations";
+import { GET_ALL_USERS } from "../../gql/users.queries";
 
 export const RemoveUser = props => {
   const [removeUser] = useMutation(REMOVE_USER, {

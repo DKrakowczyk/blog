@@ -11,6 +11,7 @@ import { User } from "../../users/models/user.schema";
 import { ObjectId } from "bson";
 import { Category } from "../../categories/models/category.schema";
 import { EditArticleInput } from "./models/edit-article.input";
+import { Statistics } from "./models/statistics.schema";
 // To calculate time to read variable
 const WORDS_PER_MINUTE = 200;
 
@@ -146,5 +147,22 @@ export class ArticleService {
     article.comments.splice(removeAt, 1);
     article.save();
     return comment;
+  }
+
+  async getStatistics(): Promise<Statistics> {
+    let publishedCount = 0,
+      draftCount = 0,
+      commentCount = 0;
+    const articles = await this.findAll();
+    const drafts = articles.filter(article => {
+      return article.isDraft;
+    });
+    articles.map(article => (commentCount += article.comments.length));
+    return {
+      articlesCount: articles.length,
+      publishedCount: articles.length - drafts.length,
+      draftsCount: drafts.length,
+      commentsCount: commentCount
+    };
   }
 }

@@ -2,8 +2,8 @@ import { useMutation } from "@apollo/react-hooks";
 import { Form, Icon, Input, Modal } from "antd";
 import React, { useState } from "react";
 import { openNotification } from "../common/notification.component";
-import { EDIT_CATEGORY } from "./categories.mutations";
-import { GET_ALL_CATEGORIES } from "./categories.queries";
+import { EDIT_CATEGORY } from "../../gql/categories.mutations";
+import { GET_ALL_CATEGORIES } from "../../gql/categories.queries";
 const { TextArea } = Input;
 
 export const EditCategory = props => {

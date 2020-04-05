@@ -12,11 +12,11 @@ import {
 } from "shards-react";
 import styled from "styled-components";
 import { animateScroll as scroll } from "react-scroll";
-import { ArticleGallery } from "../article/articleGallery.component";
-import { GET_ALL_CATEGORIES } from "../dashboard/categories/categories.queries";
-import { NavbarLanding } from "../navbar/navbar.component";
+import { ArticleGallery } from "./article/articleGallery.component";
+import { GET_ALL_CATEGORIES } from "../gql/categories.queries";
+import { NavbarLanding } from "./navbar/navbar.component";
 import { GET_ALL_ARTICLES } from "../gql/articles.queries";
-import { ArticleList } from "../article/articleList.component";
+import { ArticleList } from "./article/articleList.component";
 const Categories = styled(Card)`
   text-align: center;
   margin: auto;

@@ -1,11 +1,12 @@
-import { Comment, Empty } from "antd";
+import { Comment, Empty, Icon } from "antd";
 import { useMutation } from "@apollo/react-hooks";
 import React, { useState } from "react";
 import { Button, Card, CardBody, CardTitle, FormTextarea } from "shards-react";
 import styled from "styled-components";
-import { ADD_COMMENT } from "../gql/articles.mutations";
+import { ADD_COMMENT, REMOVE_COMMENT } from "../gql/articles.mutations";
 import { GET_SINGLE_ARTICLE } from "../gql/articles.queries";
 import { openNotification } from "../dashboard/common/notification.component";
+import { ROLE } from "../../constants/constants";
 const ShadowCard = styled(Card)`
   -webkit-box-shadow: 0px 0px 33px 3px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0px 0px 33px 3px rgba(0, 0, 0, 0.4);
@@ -14,8 +15,6 @@ const ShadowCard = styled(Card)`
 `;
 
 export const Comments = ({ article }, props) => {
-  console.log(article);
-
   const [commentBody, setCommentBody] = useState();
   const [addComment] = useMutation(ADD_COMMENT, {
     refetchQueries: () => [
@@ -25,6 +24,35 @@ export const Comments = ({ article }, props) => {
       }
     ]
   });
+
+  const [deleteComment] = useMutation(REMOVE_COMMENT, {
+    refetchQueries: () => [
+      {
+        query: GET_SINGLE_ARTICLE,
+        variables: { articleId: article._id }
+      }
+    ]
+  });
+
+  const removeComment = async id => {
+    try {
+      await deleteComment({
+        variables: {
+          articleId: article._id,
+          commentId: id
+        }
+      });
+      openNotification(
+        "success",
+        "Want to delete something else?",
+        `Comment was successfully deleted`
+      );
+
+      setCommentBody("");
+    } catch (error) {
+      openNotification("error", "Oh no, you can not do this!", error.message);
+    }
+  };
 
   const postComment = async () => {
     try {
@@ -52,7 +80,25 @@ export const Comments = ({ article }, props) => {
           <>
             <Comment
               author={comment.authorName ? comment.authorName : "anonymous"}
-              content={<p>{comment.comment}</p>}
+              content={
+                <>
+                  <p>{comment.comment}</p>
+                  {localStorage.getItem("ROLE") === ROLE.Admin ? (
+                    <Button
+                      outline
+                      theme="danger"
+                      style={{ float: "right" }}
+                      onClick={() => {
+                        removeComment(comment._id);
+                      }}
+                    >
+                      <Icon type="cross" />
+                    </Button>
+                  ) : (
+                    <></>
+                  )}
+                </>
+              }
             />
             <div className="comment-wrapper"></div>
           </>

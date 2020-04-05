@@ -8,3 +8,13 @@ export const GET_SINGLE_CATEGORY = gql`
     }
   }
 `;
+
+export const GET_ALL_CATEGORIES = gql`
+  query {
+    getAllCategories {
+      _id
+      name
+      description
+    }
+  }
+`;

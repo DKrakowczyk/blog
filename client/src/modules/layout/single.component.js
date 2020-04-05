@@ -17,12 +17,12 @@ import {
   Badge
 } from "shards-react";
 import styled from "styled-components";
-import { FooterSection } from "../footer/footer.component";
+import { FooterSection } from "./footer.component";
 import {
   GET_RANDOM_ARTICLES,
   GET_SINGLE_ARTICLE
 } from "../gql/articles.queries";
-import { NavbarLanding } from "../navbar/navbar.component";
+import { NavbarLanding } from "./navbar/navbar.component";
 import { LoaderComponent } from "../layout/loader.component";
 import { Comments } from "./comments.component";
 const Content = styled.div`

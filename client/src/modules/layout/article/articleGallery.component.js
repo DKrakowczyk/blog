@@ -30,8 +30,8 @@ export const ArticleGallery = ({ articles, ...props }) => {
   return (
     <Masonry
       breakpointCols={breakpointColumnsObj}
-      className="my-masonry-grid"
-      columnClassName="my-masonry-grid_column"
+      className="masonry"
+      columnClassName="masonry_column"
     >
       {Articles}
     </Masonry>

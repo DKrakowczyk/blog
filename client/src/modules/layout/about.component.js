@@ -10,7 +10,7 @@ import {
   Badge
 } from "shards-react";
 import styled from "styled-components";
-import { NavbarLanding } from "../navbar/navbar.component";
+import { NavbarLanding } from "./navbar/navbar.component";
 import { GET_ABOUT_SHORT } from "../gql/about.queries";
 const Bio = styled(Card)`
   text-align: center;

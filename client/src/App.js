@@ -12,6 +12,7 @@ import { CategoriesLayout } from "./modules/layout/categories.component";
 import { AboutLayout } from "./modules/layout/about.component";
 import { ArticlesLayout } from "./modules/layout/articles.component";
 import { SingleCategory } from "./modules/layout/single-category.component";
+import { ROLE } from "./constants/constants";
 function App() {
   return (
     <ApolloProvider client={client}>
@@ -35,11 +36,12 @@ function App() {
           <Route exact path="/about">
             <AboutLayout />
           </Route>
-          {localStorage.getItem("TOKEN") !== null && (
-            <Route path="/dashboard">
-              <Dashboard />
-            </Route>
-          )}
+          {localStorage.getItem("TOKEN") !== null &&
+            localStorage.getItem("ROLE") === ROLE.Admin && (
+              <Route path="/dashboard">
+                <Dashboard />
+              </Route>
+            )}
         </Switch>
       </Router>
     </ApolloProvider>

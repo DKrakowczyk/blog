@@ -231,6 +231,7 @@ type Query {
   getFromCategory(categoryId: ObjectId!): [Article!]!
   getArticlesExcept(articleId: ObjectId!): [Article!]!
   getSingleArticle(articleId: ObjectId!): Article!
+  getStatistics: Statistics!
   getAllCategories: [Category!]!
   getCategory(categoryId: ObjectId!): Category!
   findAllUsers: [User!]!
@@ -248,6 +249,21 @@ enum Role {
 input SignInUserInput {
   email: String!
   password: String!
+}
+
+"""Statistics model"""
+type Statistics {
+  """Articles count"""
+  articlesCount: Float!
+
+  """Published articles count"""
+  publishedCount: Float!
+
+  """Draft's count"""
+  draftsCount: Float!
+
+  """Comments count"""
+  commentsCount: Float!
 }
 
 type User {

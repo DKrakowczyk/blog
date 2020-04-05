@@ -12,8 +12,8 @@ import {
   Row
 } from "shards-react";
 import styled from "styled-components";
-import { ArticleGallery } from "../article/articleGallery.component";
-import { NavbarLanding } from "../navbar/navbar.component";
+import { ArticleGallery } from "./article/articleGallery.component";
+import { NavbarLanding } from "./navbar/navbar.component";
 import { GET_SINGLE_CATEGORY } from "../gql/categories.queries";
 import { GET_FROM_CATEGORY } from "../gql/articles.queries";
 const Categories = styled(Card)`

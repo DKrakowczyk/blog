@@ -1,4 +1,4 @@
-import { Divider, Icon, Layout } from "antd";
+import { Layout } from "antd";
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { About } from "./about/about.component";
@@ -10,25 +10,19 @@ import { MainComponent } from "./main/main.component";
 import { Sidebar } from "./sidebar/sidebar.component";
 import { SocialComponent } from "./social/social.component";
 import { UsersList } from "./users/users-list.component";
+
 const { Header, Content, Footer } = Layout;
 
 function Dashboard() {
+  const userName = localStorage.getItem("userName");
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sidebar />
       <Layout>
         <Header style={{ background: "#fff", padding: 0 }}>
-          <div style={{ float: "right" }}>
-            <Divider type="vertical" />
-            <Icon type="facebook" size={32} />
-            <Divider type="vertical" />
-            <Icon type="instagram" size={32} />
-            <Divider type="vertical" />
-            <Icon type="twitter" size={32} />
-            <Divider type="vertical" />
-            <Icon type="linkedin" size={32} />
-            <Divider type="vertical" />
-          </div>
+          <p style={{ textAlign: "center", fontSize: "18px" }}>
+            &#60; Hello again <strong>{userName}</strong> /&#62;
+          </p>
         </Header>
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumbs />
@@ -59,7 +53,7 @@ function Dashboard() {
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          blog-system ©2020 Created by DKrakowczyk
+          blog-system ©2020 Created by Dawid Krakowczyk
         </Footer>
       </Layout>
     </Layout>

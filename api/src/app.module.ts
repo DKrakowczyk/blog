@@ -9,9 +9,12 @@ import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { UserModule } from "./modules/users/user.module";
 import { AboutModule } from "./modules/about/about.module";
+import { IdeasController } from "./modules/rest-ideas/ideas.controller";
+import { IdeasModule } from "./modules/rest-ideas/ideas.module";
 
 @Module({
   imports: [
+    IdeasModule,
     ArticleModule,
     CommentModule,
     CommonModule,

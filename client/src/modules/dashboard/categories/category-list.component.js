@@ -4,7 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { CategoriesHelp, HelpButton } from "../common/notification.helper";
 import { AddCategory } from "./add-category.component";
-import { GET_ALL_CATEGORIES } from "./categories.queries";
+import { GET_ALL_CATEGORIES } from "../../gql/categories.queries";
 import { EditCategory } from "./edit.category.component";
 import { RemoveCategory } from "./remove-category.component";
 

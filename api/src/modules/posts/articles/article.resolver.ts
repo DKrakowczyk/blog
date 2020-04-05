@@ -19,6 +19,7 @@ import { Roles } from "../../auth/decorators/roles.decorator";
 import { User } from "src/modules/users/models/user.schema";
 import { Category } from "../../categories/models/category.schema";
 import { EditArticleInput } from "./models/edit-article.input";
+import { Statistics } from "./models/statistics.schema";
 
 @Resolver(() => Article)
 @UseGuards(AuthGuard)
@@ -102,5 +103,10 @@ export class ArticleResolver {
     @Args("articleId") articleId: ObjectIdScalar
   ): Promise<Article> {
     return this.articleService.delete(articleId);
+  }
+
+  @Query(() => Statistics)
+  async getStatistics(): Promise<Statistics> {
+    return this.articleService.getStatistics();
   }
 }

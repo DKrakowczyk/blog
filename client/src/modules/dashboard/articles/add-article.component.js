@@ -6,7 +6,7 @@ import JoditEditor from "jodit-react";
 import React, { useState } from "react";
 import { ADD_ARTICLE } from "../../gql/articles.mutations";
 import { GET_ALL_ARTICLES } from "../../gql/articles.queries";
-import { GET_ALL_CATEGORIES } from "../categories/categories.queries";
+import { GET_ALL_CATEGORIES } from "../../gql/categories.queries";
 const { Option } = Select;
 
 export const AddArticle = () => {

@@ -1,53 +1,60 @@
 import { Calendar, Col, Divider, Icon, Row, Statistic } from "antd";
 import React from "react";
+import { useQuery } from "@apollo/react-hooks";
+import { IdeasComponent } from "../ideas/ideas.component";
+import { GET_STATISTICS } from "../../gql/statistics.query";
 export const MainComponent = props => {
+  const { loading, data } = useQuery(GET_STATISTICS);
+  const statistics = !loading && data ? data.getStatistics : null;
+
   return (
     <div>
       <Divider>
         <Icon type="dashboard" /> Dashboard
       </Divider>
       <Row gutter={16} style={{ margin: "auto", textAlign: "center" }}>
-        <Col span={6}>
+        <Col span={8}>
           <Statistic
-            title="Articles"
-            value={46}
-            prefix={<Icon type="rocket" />}
+            title="Total articles"
+            value={
+              statistics && statistics.articlesCount
+                ? statistics.articlesCount
+                : "?"
+            }
+            prefix={<Icon type="coffee" />}
           />
         </Col>
 
-        <Col span={6}>
+        <Col span={8}>
           <Statistic
             title="Published / drafts"
-            value={7}
-            prefix={<Icon type="rocket" />}
-            suffix="/ 12"
+            value={
+              statistics && statistics.publishedCount
+                ? statistics.publishedCount
+                : "?"
+            }
+            prefix={<Icon type="unlock" />}
+            suffix={
+              statistics && statistics.draftsCount
+                ? "/" + statistics.draftsCount
+                : "?"
+            }
           />
         </Col>
-        <Col span={6}>
+        <Col span={8}>
           <Statistic
             title="Comments"
-            value={1128}
+            value={
+              statistics && statistics.commentsCount
+                ? statistics.commentsCount
+                : "?"
+            }
             prefix={<Icon type="message" />}
           />
         </Col>
-        <Col span={6}>
-          <Statistic
-            title="Ideas"
-            value={93}
-            prefix={<Icon type="bulb" />}
-            suffix="/ 100"
-          />
-        </Col>
       </Row>
-      <Divider> Add reminders </Divider>
-      <div
-        style={{
-          width: "80%",
-          margin: "auto",
-          border: "1px solid #d9d9d9",
-          borderRadius: 4
-        }}
-      ></div>
+      <br />
+      <IdeasComponent landing={true} />
     </div>
   );
 };

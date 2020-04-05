@@ -1,36 +1,32 @@
-import { useMutation } from "@apollo/react-hooks";
 import { Button, Form, Input, Modal } from "antd";
 import React, { useState } from "react";
 import { openNotification } from "../common/notification.component";
-import { ADD_CATEGORY } from "../../gql/categories.mutations";
-import { GET_ALL_CATEGORIES } from "../../gql/categories.queries";
 const { TextArea } = Input;
-export const AddCategory = props => {
+export const AddIdea = props => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [category, setCategory] = useState({
-    _id: "",
-    name: "",
+  const [idea, setIdea] = useState({
+    title: "",
     description: ""
-  });
-  const [addCategory] = useMutation(ADD_CATEGORY, {
-    refetchQueries: () => [
-      {
-        query: GET_ALL_CATEGORIES
-      }
-    ]
   });
 
   const handleSaveClick = async () => {
-    category._id = undefined;
-    if (category.name.length && category.description.length) {
+    if (idea.title.length && idea.description.length) {
       try {
-        await addCategory({
-          variables: { input: category }
+        fetch("http://localhost:4000/ideas", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            title: idea.title,
+            description: idea.description
+          })
         });
         openNotification(
           "success",
-          "Another new category idea?",
-          `Category ${category.name} was successfully added`
+          "Another new idea?",
+          `Idea was successfully added`
         );
       } catch (error) {
         openNotification("error", "Oh no!", error.message);
@@ -39,10 +35,13 @@ export const AddCategory = props => {
       openNotification(
         "warning",
         "No idea?",
-        "You have to provide category title and description :("
+        "You have to provide idea title and description :("
       );
     }
-
+    setIdea({
+      title: "",
+      description: ""
+    });
     setModalVisible(false);
   };
 
@@ -54,43 +53,41 @@ export const AddCategory = props => {
           setModalVisible(true);
         }}
       >
-        Add Category
+        Add Idea
       </Button>
       <Modal
-        title="Add new category"
+        title="Add new idea"
         visible={modalVisible}
         onOk={() => handleSaveClick()}
         onCancel={() => {
           setModalVisible(false);
-          setCategory({ _id: "", name: "", description: "" });
+          setIdea({ title: "", description: "" });
         }}
         htmlType="submit"
       >
         <Form className="login-form">
           <Form.Item>
             <Input
-              value={category.name}
+              value={idea.title}
               onChange={e =>
-                setCategory({
-                  _id: category._id,
-                  name: e.target.value,
-                  description: category.description
+                setIdea({
+                  title: e.target.value,
+                  description: idea.description
                 })
               }
-              placeholder="Category title"
+              placeholder="Idea title"
             />
           </Form.Item>
           <Form.Item>
             <TextArea
-              value={category.description}
+              value={idea.description}
               onChange={e =>
-                setCategory({
-                  _id: category._id,
-                  name: category.name,
+                setIdea({
+                  title: idea.title,
                   description: e.target.value
                 })
               }
-              placeholder="Category description"
+              placeholder="Idea description"
             />
           </Form.Item>
         </Form>

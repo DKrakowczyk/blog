@@ -2,11 +2,11 @@ import { useLazyQuery } from "@apollo/react-hooks";
 import React, { useState, useEffect } from "react";
 import { animateScroll as scroll } from "react-scroll";
 import { Col, Container, Row, FormInput } from "shards-react";
-import { FooterSection } from "../footer/footer.component";
+import { FooterSection } from "./footer.component";
 import { SEARCH_ARTICLES } from "../gql/articles.queries";
-import { NavbarLanding } from "../navbar/navbar.component";
+import { NavbarLanding } from "./navbar/navbar.component";
 import { LoaderComponent } from "../layout/loader.component";
-import { ArticleList } from "../article/articleList.component";
+import { ArticleList } from "./article/articleList.component";
 import styled from "styled-components";
 import { Empty } from "antd";
 
