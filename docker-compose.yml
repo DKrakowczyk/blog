@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  api:
+    build: ./api
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - JWT_SECRET=wq6wDOPuDCaPEMz0hANi8GRUqR9NK8me
+      - JWT_REFRESH_SECRET=P07pxrJjvFKkMscgsF9el2vu8IAeuecy
+    restart: always
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./api/src:/api/src:cached
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "5000:27017"
+  client:
+    build: ./client
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    restart: always
+    ports:
+      - "7000:3000"
+    volumes:
+      - ./client/src:/usr/client/src:cached
+      - ./client/public:/usr/client/public:cached
+    depends_on:
+      - api

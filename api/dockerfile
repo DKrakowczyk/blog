@@ -1,0 +1,15 @@
+FROM node:10.14.2
+RUN apt-get update
+
+WORKDIR /api
+
+COPY package.json .
+COPY yarn.lock .
+COPY tsconfig.json .
+COPY tsconfig.build.json .
+RUN yarn install
+RUN yarn add typescript -g
+COPY ./src ./src
+EXPOSE 4000
+
+CMD ["yarn", "start:dev"]
